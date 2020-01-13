@@ -1,0 +1,42 @@
+{
+  "name": "torrent-indexer",
+  "version": "1.0.0",
+  "description": "Yet another node.js torrent scraper based on seek-torrent but made especially for movie and series (scrape from 1337x, eztv, limetorrents, rarbg, skytorrents, torrentproject, torrentz2, yts and zooqle)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**",
+    "pretest": "npm run eslint",
+    "eslint": "eslint src/"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sayem314/torrent-indexer.git"
+  },
+  "keywords": [
+    "torrent",
+    "search",
+    "seek",
+    "index",
+    "download",
+    "movie",
+    "series",
+    "tracker",
+    "tvshow"
+  ],
+  "author": "Sayem Chowdhury",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "cheerio": "^1.0.0-rc.3",
+    "parse-torrent-title": "^1.2.0",
+    "string-similarity": "^4.0.1"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "eslint": "6.8.0",
+    "mocha": "7.0.0"
+  }
+}
