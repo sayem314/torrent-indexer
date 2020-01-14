@@ -25,7 +25,8 @@ const search = async (query, rarbg_api_url) => {
     const response = await axios.get(token_url, {
       headers: {
         "user-agent": "node.js"
-      }
+      },
+      timeout: 10000
     });
 
     const search_url =
@@ -40,7 +41,8 @@ const search = async (query, rarbg_api_url) => {
     const { data } = await axios.get(search_url, {
       headers: {
         "user-agent": "node.js"
-      }
+      },
+      timeout: 1000
     });
 
     if (!data.error) {

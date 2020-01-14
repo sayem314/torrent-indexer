@@ -8,7 +8,7 @@ const search = async (query, torrentproject_url, page) => {
   let torrent_content = [];
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
     const $ = cheerio.load(data);
 
     $("#similarfiles > div")

@@ -12,7 +12,7 @@ const search = async (query, skytorrents_url, page) => {
   let torrent_content = [];
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
     const $ = cheerio.load(data);
 
     $("table.table.is-striped.is-narrow tr").each((index, torrents) => {

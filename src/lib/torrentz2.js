@@ -9,7 +9,7 @@ const search = async (query, torrentz2_url, page) => {
   let torrent_content = [];
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
     const $ = cheerio.load(data);
 
     $("div.results > dl").each((index, torrents) => {

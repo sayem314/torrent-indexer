@@ -8,7 +8,7 @@ const search = async (query, leetx_url, page) => {
   let torrent_content = [];
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
     const $ = cheerio.load(data);
 
     $(".table-list tbody tr").each((index, torrents) => {

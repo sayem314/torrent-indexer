@@ -9,7 +9,7 @@ const search = async (query, thepiratebay_url, page) => {
   let torrent_content = [];
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
     const $ = cheerio.load(data);
 
     $("table#searchResult tr").each((index, torrents) => {

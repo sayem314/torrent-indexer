@@ -13,7 +13,7 @@ const search = async (query, yts_url) => {
     "&sort=seeds&order=desc&set=1";
 
   try {
-    const { data } = await axios.get(search_url);
+    const { data } = await axios.get(search_url, { timeout: 10000 });
 
     if (data.data.movie_count > 0) {
       for (let torrent in data.data.movies) {

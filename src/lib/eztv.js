@@ -11,7 +11,8 @@ const search = async (query, eztv_url) => {
     const { data } = await axios.get(search_url, {
       headers: {
         "User-Agent": "request"
-      }
+      },
+      timeout: 10000
     });
     const $ = cheerio.load(data);
 
