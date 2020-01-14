@@ -1,8 +1,8 @@
-# torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer)
+## torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer)
 
 Finds the best torrents (Movies, Series and Other stuff) across multiple sources.
 
-## Install:
+### Install:
 
 ```bash
 $ npm i torrent-indexer
@@ -10,7 +10,7 @@ $ npm i torrent-indexer
 $ yarn add torrent-indexer
 ```
 
-## Usage:
+### Usage:
 
 ```javascript
 const torrentIndexer = require("torrent-indexer");
@@ -60,3 +60,9 @@ const torrentIndexer = require("torrent-indexer");
   */
 })();
 ```
+
+### Donations
+
+If you want to show your appreciation, you can donate me on [ko-fi](https://ko-fi.com/Z8Z5KDA6) or [buy me a coffee](https://www.buymeacoffee.com/sayem). Thanks!
+
+> Made with :heart: & :coffee: by Sayem
