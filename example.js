@@ -1,4 +1,5 @@
-const torrentIndexer = require("./");
+const TorrentIndexer = require("./");
+const torrentIndexer = new TorrentIndexer();
 
 (async function() {
   // search tv series
