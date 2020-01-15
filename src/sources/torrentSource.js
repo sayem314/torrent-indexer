@@ -56,7 +56,9 @@ class TorrentSource {
             torrentData.site = searchResult.torrent_site;
           if (searchResult.date_added)
             torrentData.uploaded = searchResult.date_added;
-          if (this.sourceName) torrentData.sourceName = this.sourceName;
+
+          // add source site name
+          torrentData.sourceName = this.sourceName;
 
           parsedResults.push(torrentData);
         }
