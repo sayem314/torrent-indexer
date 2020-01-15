@@ -48,10 +48,10 @@ class TorrentSource {
             torrentData.verified = searchResult.torrent_verified;
           if (searchResult.torrent_link)
             torrentData.link = searchResult.torrent_link;
-          if (searchResult.seeds) {
-            if (!searchResult.seeds >= 1) return;
-            torrentData.seeders = searchResult.seeds;
-          }
+
+          if (!searchResult.seeds >= 1) return; // return undefined if no seeders
+          torrentData.seeders = searchResult.seeds;
+
           if (searchResult.torrent_site)
             torrentData.site = searchResult.torrent_site;
           if (searchResult.date_added)
