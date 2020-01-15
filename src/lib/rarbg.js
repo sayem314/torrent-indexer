@@ -42,7 +42,7 @@ const search = async (query, rarbg_api_url) => {
       headers: {
         "user-agent": "node.js"
       },
-      timeout: 1000
+      timeout: 10000
     });
 
     if (!data.error) {
