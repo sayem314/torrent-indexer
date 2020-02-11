@@ -7,13 +7,13 @@ class RarbgSearch extends TorrentSource {
     this.url = options.url;
   }
 
-  async search(searchQuery, type, page = 1) {
+  async search(searchQuery, type, page = 1, category) {
     try {
       if (page !== 1) {
         return [];
       }
 
-      const results = await rarbg.search(searchQuery, this.url);
+      const results = await rarbg.search(searchQuery, this.url, category);
       return this.reconstitute(results, searchQuery, type);
     } catch (err) {
       console.error(err);

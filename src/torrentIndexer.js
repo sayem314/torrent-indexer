@@ -41,7 +41,7 @@ class TorrentIndexer {
         case "movie":
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
-            this.RARBG.search(query, type, page),
+            this.RARBG.search(query, type, page, "movies"),
             this.SKY.search(query, type, page, "movie"),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
@@ -54,7 +54,7 @@ class TorrentIndexer {
         case "series":
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
-            this.RARBG.search(query, type, page),
+            this.RARBG.search(query, type, page, "tv"),
             this.SKY.search(query, type, page, "show"),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
@@ -67,7 +67,6 @@ class TorrentIndexer {
         case "anime":
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
-            this.RARBG.search(query, type, page),
             this.SKY.search(query, type, page),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
@@ -79,7 +78,7 @@ class TorrentIndexer {
         case "music":
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
-            this.RARBG.search(query, type, page),
+            this.RARBG.search(query, type, page, "2;23;24;25;26"),
             this.SKY.search(query, type, page),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
