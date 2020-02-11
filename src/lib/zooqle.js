@@ -12,7 +12,7 @@ const search = async (query, zooqle_url, page, category) => {
   let data_content = {};
   let torrent_content = [];
   let search_query = query.split(" ").join("+");
-  let search_url = `${zooqle_url}/search/?pg=${page}&q=${searchQuery}&s=ns&v=t&sd=d`;
+  let search_url = `${zooqle_url}/search/?pg=${page}&q=${search_query}&s=ns&v=t&sd=d`;
 
   try {
     const { data } = await axios.get(search_url, {

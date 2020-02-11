@@ -35,6 +35,7 @@ class TorrentIndexer {
 
   async search(query, type, page = 1) {
     try {
+      // universal search
       const results = [
         this.TORRENTZ2.search(query, type, page),
         this.RARBG.search(query, type, page),
@@ -58,6 +59,13 @@ class TorrentIndexer {
             this.EZTV.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "tv"),
             this.ZOOQLE.search(query, type, page, "TV")
+          );
+          break;
+        case "anime":
+          results.unshift(
+            this.LEETX.search(query, type, page, "Anime"),
+            this.LIMETORRENTS.search(query, type, page, "anime"),
+            this.ZOOQLE.search(query, type, page, "Anime")
           );
           break;
         default:

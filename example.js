@@ -19,6 +19,10 @@ const torrentIndexer = new TorrentIndexer();
   );
   console.log("Movies", movies[0], movies.length + " items");
 
+  // search anime
+  const anime = await torrentIndexer.search("ride your wave", "anime");
+  console.log("Anime", anime[0], anime.length + " items");
+
   // search music or other thing
   const music = await torrentIndexer.search("lana del rey");
   console.log("Music", music[0], music.length + " items");
