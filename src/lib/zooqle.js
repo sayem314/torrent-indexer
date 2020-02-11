@@ -8,7 +8,7 @@ const nonHumanizeNumbers = value => {
   return Number(value);
 };
 
-const search = async (query, zooqle_url, page, category) => {
+const search = async (query, zooqle_url, page) => {
   let data_content = {};
   let torrent_content = [];
   let search_query = query.split(" ").join("+");
