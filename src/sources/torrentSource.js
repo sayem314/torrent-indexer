@@ -51,6 +51,7 @@ class TorrentSource {
 
           if (!searchResult.seeds >= 1) return; // return undefined if no seeders
           torrentData.seeders = searchResult.seeds;
+          torrentData.leechers = searchResult.leechs;
 
           if (searchResult.torrent_site)
             torrentData.site = searchResult.torrent_site;
