@@ -76,6 +76,17 @@ class TorrentIndexer {
             this.ZOOQLE.search(query, type, page, "Anime")
           ]);
           break;
+        case "music":
+          results = await Promise.all([
+            this.TORRENTZ2.search(query, type, page),
+            this.RARBG.search(query, type, page),
+            this.SKY.search(query, type, page),
+            this.TPB.search(query, type, page),
+            this.TORRENTPROJECT.search(query, type, page),
+            this.LEETX.search(query, type, page, "Music"),
+            this.LIMETORRENTS.search(query, type, page, "music")
+          ]);
+          break;
         default:
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
