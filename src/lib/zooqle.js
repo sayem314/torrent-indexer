@@ -5,16 +5,14 @@ const nonHumanizeNumbers = value => {
   if (value.endsWith("K")) {
     value = parseInt(value) + "000";
   }
-
   return Number(value);
 };
 
-const search = async (query, zooqle_url, page) => {
+const search = async (query, zooqle_url, page, category) => {
   let data_content = {};
   let torrent_content = [];
-  let search_url = `${zooqle_url}/search/?pg=${page}&q=${encodeURIComponent(
-    query
-  )}&s=ns&v=t&sd=d`;
+  let search_query = query.split(" ").join("+");
+  let search_url = `${zooqle_url}/search/?pg=${page}&q=${searchQuery}&s=ns&v=t&sd=d`;
 
   try {
     const { data } = await axios.get(search_url, {

@@ -1,9 +1,11 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const search = async (query, leetx_url, page) => {
+const search = async (query, leetx_url, page, category) => {
   let search_query = query.split(" ").join("+");
-  let search_url = `${leetx_url}/search/${search_query}/${page}/`;
+  let search_url = `${leetx_url}/${
+    category ? "category-search" : "search"
+  }/${search_query}/${category ? category + "/" : "/"}${page}/`;
   let data_content = {};
   let torrent_content = [];
 

@@ -7,9 +7,17 @@ class ZooqleSearch extends TorrentSource {
     this.url = options.url;
   }
 
-  async search(searchQuery, type, page = 1) {
+  async search(searchQuery, type, page = 1, category) {
     try {
-      const results = await zooqle.search(searchQuery, this.url, page);
+      const results = await zooqle.search(
+        searchQuery,
+        this.url,
+        page,
+        category
+      );
+      if (category) {
+        searchQuery += " category%3A" + category;
+      }
       return this.reconstitute(results, searchQuery, type);
     } catch (err) {
       console.error(err);

@@ -1,9 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const search = async (query, limetorrents_url, page) => {
+const search = async (query, limetorrents_url, page, category) => {
   let search_query = query.split(" ").join("-");
-  let search_url = `${limetorrents_url}/search/all/${search_query}/${page}/`;
+  let search_url = `${limetorrents_url}/search/${category}/${search_query}/${page}/`;
   let data_content = {};
   let torrent_content = [];
 

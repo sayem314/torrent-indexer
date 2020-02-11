@@ -36,26 +36,38 @@ class TorrentIndexer {
   async search(query, type, page = 1) {
     try {
       const results = [
-        this.LEETX.search(query, type, page),
         this.TORRENTZ2.search(query, type, page),
         this.RARBG.search(query, type, page),
         this.SKY.search(query, type, page),
-        this.ZOOQLE.search(query, type, page),
         this.TPB.search(query, type, page),
-        this.LIMETORRENTS.search(query, type, page),
         this.TORRENTPROJECT.search(query, type, page)
       ];
 
       switch (type) {
         case "movie":
-          results.unshift(this.YTS.search(query, type, page));
+          results.unshift(
+            this.LEETX.search(query, type, page, "Movies"),
+            this.YTS.search(query, type, page),
+            this.LIMETORRENTS.search(query, type, page, "movies"),
+            this.ZOOQLE.search(query, type, page, "Movies")
+          );
           break;
         case "series":
-          results.unshift(this.EZTV.search(query, type, page));
+          results.unshift(
+            this.LEETX.search(query, type, page, "TV"),
+            this.EZTV.search(query, type, page),
+            this.LIMETORRENTS.search(query, type, page, "tv"),
+            this.ZOOQLE.search(query, type, page, "TV")
+          );
           break;
         default:
-          results.push(this.YTS.search(query, type, page));
-          results.push(this.EZTV.search(query, type, page));
+          results.push(
+            this.YTS.search(query, type, page),
+            this.LEETX.search(query, type, page),
+            this.EZTV.search(query, type, page),
+            this.LIMETORRENTS.search(query, type, page, "all"),
+            this.ZOOQLE.search(query, type, page)
+          );
       }
 
       await Promise.all(results);
