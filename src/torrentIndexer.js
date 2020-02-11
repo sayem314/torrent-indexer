@@ -35,18 +35,30 @@ class TorrentIndexer {
 
   async search(query, type, page = 1) {
     try {
-      let results = await Promise.all([
-        this.YTS.search(query, type, page),
+      const results = [
         this.LEETX.search(query, type, page),
         this.TORRENTZ2.search(query, type, page),
-        this.EZTV.search(query, type, page),
         this.RARBG.search(query, type, page),
         this.SKY.search(query, type, page),
         this.ZOOQLE.search(query, type, page),
         this.TPB.search(query, type, page),
         this.LIMETORRENTS.search(query, type, page),
         this.TORRENTPROJECT.search(query, type, page)
-      ]);
+      ];
+
+      switch (type) {
+        case "movie":
+          results.unshift(this.YTS.search(query, type, page));
+          break;
+        case "series":
+          results.unshift(this.EZTV.search(query, type, page));
+          break;
+        default:
+          results.push(this.YTS.search(query, type, page));
+          results.push(this.EZTV.search(query, type, page));
+      }
+
+      await Promise.all(results);
 
       return [].concat.apply([], results).filter(obj => obj);
     } catch (err) {
