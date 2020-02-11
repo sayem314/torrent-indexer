@@ -12,22 +12,27 @@ const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+let rarbg_token = { token: null, updated: 0 };
+
 const search = async (query, rarbg_api_url, category) => {
   let search_query = query.split(" ").join("+");
   let data_content = {};
   let torrent_content = [];
 
-  //get token
-  let token_url =
-    rarbg_api_url + "/pubapi_v2.php?get_token=get_token&app_id=torrenter";
-
   try {
-    const response = await axios.get(token_url, {
-      headers: {
-        "user-agent": "node.js"
-      },
-      timeout: 10000
-    });
+    // get token
+    const seconds = Math.floor(Date.now() / 1000);
+    if (seconds - rarbg_token.updated > 870) {
+      const token_url =
+        rarbg_api_url + "/pubapi_v2.php?get_token=get_token&app_id=torrenter";
+      const response = await axios.get(token_url, {
+        headers: {
+          "user-agent": "node.js"
+        },
+        timeout: 10000
+      });
+      rarbg_token = { token: response.data.token, updated: seconds };
+    }
 
     // docs - https://torrentapi.org/apidocs_v2.txt?&app_id=torrenter
     const search_url = `${rarbg_api_url}/pubapi_v2.php?mode=search&search_string=${encodeURIComponent(
@@ -35,7 +40,7 @@ const search = async (query, rarbg_api_url, category) => {
     )}&app_id=torrenter${
       category ? "&category=" + category : ""
     }&sort=seeders&min_seeders=1&ranked=0&format=json_extended&token=${
-      response.data.token
+      rarbg_token.token
     }`;
 
     await sleep(2200);
