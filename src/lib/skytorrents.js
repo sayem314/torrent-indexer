@@ -1,13 +1,13 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const search = async (query, skytorrents_url, page) => {
+const search = async (query, skytorrents_url, page, category) => {
   let torrent_search = query;
   let search_query = torrent_search.split(" ").join("+");
 
   let search_url = `${skytorrents_url}/?query=${encodeURIComponent(
     search_query
-  )}&page=${page}`;
+  )}${category ? "&category=" + category : ""}&page=${page}`;
   let data_content = {};
   let torrent_content = [];
 

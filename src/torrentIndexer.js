@@ -42,7 +42,7 @@ class TorrentIndexer {
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page),
-            this.SKY.search(query, type, page),
+            this.SKY.search(query, type, page, "movie"),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Movies"),
@@ -55,7 +55,7 @@ class TorrentIndexer {
           results = await Promise.all([
             this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page),
-            this.SKY.search(query, type, page),
+            this.SKY.search(query, type, page, "show"),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "TV"),
