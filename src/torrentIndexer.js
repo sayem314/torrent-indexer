@@ -35,51 +35,62 @@ class TorrentIndexer {
 
   async search(query, type, page = 1) {
     try {
-      // universal search
-      const results = [
-        this.TORRENTZ2.search(query, type, page),
-        this.RARBG.search(query, type, page),
-        this.SKY.search(query, type, page),
-        this.TPB.search(query, type, page),
-        this.TORRENTPROJECT.search(query, type, page)
-      ];
-
+      let results;
+      /*eslint-disable */
       switch (type) {
         case "movie":
-          results.unshift(
+          results = await Promise.all([
+            this.TORRENTZ2.search(query, type, page),
+            this.RARBG.search(query, type, page),
+            this.SKY.search(query, type, page),
+            this.TPB.search(query, type, page),
+            this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Movies"),
             this.YTS.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "movies"),
             this.ZOOQLE.search(query, type, page, "Movies")
-          );
+          ]);
           break;
         case "series":
-          results.unshift(
+          results = await Promise.all([
+            this.TORRENTZ2.search(query, type, page),
+            this.RARBG.search(query, type, page),
+            this.SKY.search(query, type, page),
+            this.TPB.search(query, type, page),
+            this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "TV"),
             this.EZTV.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "tv"),
             this.ZOOQLE.search(query, type, page, "TV")
-          );
+          ]);
           break;
         case "anime":
-          results.unshift(
+          results = await Promise.all([
+            this.TORRENTZ2.search(query, type, page),
+            this.RARBG.search(query, type, page),
+            this.SKY.search(query, type, page),
+            this.TPB.search(query, type, page),
+            this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Anime"),
             this.LIMETORRENTS.search(query, type, page, "anime"),
             this.ZOOQLE.search(query, type, page, "Anime")
-          );
+          ]);
           break;
         default:
-          results.push(
+          results = await Promise.all([
+            this.TORRENTZ2.search(query, type, page),
+            this.RARBG.search(query, type, page),
+            this.SKY.search(query, type, page),
+            this.TPB.search(query, type, page),
+            this.TORRENTPROJECT.search(query, type, page),
             this.YTS.search(query, type, page),
             this.LEETX.search(query, type, page),
             this.EZTV.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "all"),
             this.ZOOQLE.search(query, type, page)
-          );
+          ]);
       }
-
-      await Promise.all(results);
-
+      /* eslint-enable */
       return [].concat.apply([], results).filter(obj => obj);
     } catch (err) {
       console.error(err);
