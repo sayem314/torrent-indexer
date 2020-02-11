@@ -27,6 +27,7 @@ describe("torrent type -", () => {
     expect(Object.keys(results[0])).not.to.include("episode");
     expect(Object.keys(results[0])).not.to.include("season");
   });
+
   it("should respect type: series", async () => {
     const results = await test.search(testResults, "series");
     expect(results.length).to.equal(2);
@@ -35,6 +36,7 @@ describe("torrent type -", () => {
     expect(Object.keys(results[1])).to.include("episode");
     expect(Object.keys(results[1])).to.include("season");
   });
+
   it("should ignore if type is undefined", async () => {
     const results = await test.search(testResults);
     expect(results.length).to.equal(3);
@@ -43,13 +45,14 @@ describe("torrent type -", () => {
 
 describe("seeders and leechers", () => {
   const torrentIndexer = new TorrentIndexer();
-
   it("should include seeders and leechers property", async () => {
     const results = await torrentIndexer.search("agent");
     expect(results.length).to.be.above(10);
     results.map(t => {
       expect(t).to.have.property("seeders");
       expect(t.seeders).to.be.at.least(0);
+      expect(t).to.have.property("leechers");
+      expect(t.seeders).to.be.at.least(0);
     });
-  }).timeout(20000);
+  }).timeout(25000);
 });
