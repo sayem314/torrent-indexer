@@ -1,58 +1,39 @@
-const TestSource = require("./testSource");
 const TorrentIndexer = require("../src/torrentIndexer");
 const { expect } = require("chai");
 
-const test = new TestSource("testSource");
+const torrentIndexer = new TorrentIndexer();
 
-describe("torrent source -", () => {
-  it("should add fileName and sourceName", async () => {
-    const results = await test.search([
-      { title: "Test Result 2017", seeds: 1 }
-    ]);
-    expect(results[0].sourceName).to.equal("testSource");
-    expect(results[0].fileName).to.equal("Test Result 2017");
-  });
-});
-
-describe("torrent type -", () => {
-  const testResults = [
-    { title: "Test Result 2017 s01e06", seeds: 1 },
-    { title: "Test Result 2017 1x10", seeds: 1 },
-    { title: "Test Result 2017", seeds: 1 }
-  ];
-
-  it("should respect type: movie", async () => {
-    const results = await test.search(testResults, "movie");
-    expect(results.length).to.equal(1);
-    expect(Object.keys(results[0])).not.to.include("episode");
-    expect(Object.keys(results[0])).not.to.include("season");
-  });
-
-  it("should respect type: series", async () => {
-    const results = await test.search(testResults, "series");
-    expect(results.length).to.equal(2);
-    expect(Object.keys(results[0])).to.include("episode");
-    expect(Object.keys(results[0])).to.include("season");
-    expect(Object.keys(results[1])).to.include("episode");
-    expect(Object.keys(results[1])).to.include("season");
-  });
-
-  it("should ignore if type is undefined", async () => {
-    const results = await test.search(testResults);
-    expect(results.length).to.equal(3);
-  });
-});
-
-describe("seeders and leechers", () => {
-  const torrentIndexer = new TorrentIndexer();
-  it("should include seeders and leechers property", async () => {
+describe("verify sources -", () => {
+  it("each should include required property", async () => {
     const results = await torrentIndexer.search("agent");
     expect(results.length).to.be.above(10);
     results.map(t => {
+      expect(t).to.be.an("object");
+
+      expect(t).to.have.property("fileName");
+      expect(t.fileName).to.be.an("string");
+      expect(t.fileName.length).to.be.at.least(5);
+
+      expect(t).to.have.property("score");
+      expect(t.score).to.be.an("number");
+      expect(t.score).to.be.at.least(0.1);
+
+      expect(t).to.have.property("size");
+      expect(t.size).to.be.an("string");
+      expect(t.size).to.include("B");
+
+      expect(t).to.have.any.keys("link", "site");
+
       expect(t).to.have.property("seeders");
+      expect(t.seeders).to.be.an("number");
       expect(t.seeders).to.be.at.least(0);
+
       expect(t).to.have.property("leechers");
-      expect(t.seeders).to.be.at.least(0);
+      expect(t.leechers).to.be.an("number");
+      expect(t.leechers).to.be.at.least(0);
+
+      expect(t).to.have.property("sourceName");
+      expect(t.sourceName).to.be.an("string");
     });
   }).timeout(25000);
 });
