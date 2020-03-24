@@ -5,7 +5,7 @@
   "main": "src/torrentIndexer.js",
   "scripts": {
     "test": "mocha test/**",
-    "pretest": "npm run eslint",
+    "pretest": "npm run lint",
     "lint": "eslint ."
   },
   "engines": {
