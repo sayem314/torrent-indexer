@@ -4,7 +4,7 @@ const { expect } = require("chai");
 const test = new TestSource("testSource");
 
 describe("torrent source -", () => {
-  it("should add fileName and sourceName", async () => {
+  it("should add fileName and sourceName properly", async () => {
     const results = await test.search([
       { title: "Test Result 2017", seeds: 1 }
     ]);
@@ -36,7 +36,7 @@ describe("torrent type -", () => {
     expect(Object.keys(results[1])).to.include("season");
   });
 
-  it("should ignore if type is undefined", async () => {
+  it("should respect if type: undefined", async () => {
     const results = await test.search(testResults);
     expect(results.length).to.equal(3);
   });

@@ -4,7 +4,7 @@ const { expect } = require("chai");
 const torrentIndexer = new TorrentIndexer();
 
 describe("verify sources -", () => {
-  it("each should include required property", async () => {
+  it("each should have required property", async () => {
     const results = await torrentIndexer.search("agent");
     expect(results.length).to.be.above(10);
     results.map(t => {
@@ -23,6 +23,13 @@ describe("verify sources -", () => {
       expect(t.size).to.include("B");
 
       expect(t).to.have.any.keys("link", "site");
+      if (t.link) {
+        expect(t.link).to.be.an("string");
+        expect(t.link).to.include(":");
+      } else {
+        expect(t.site).to.be.an("string");
+        expect(t.site).to.include(":");
+      }
 
       expect(t).to.have.property("seeders");
       expect(t.seeders).to.be.an("number");
