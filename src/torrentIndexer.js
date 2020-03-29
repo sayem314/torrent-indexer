@@ -108,19 +108,22 @@ class TorrentIndexer {
     }
   }
 
+  torrentFromString(data) {
+    const $ = cheerio.load(data);
+    return (
+      $("a[href^=magnet]")
+        .eq(0)
+        .attr("href") ||
+      $(".torrenthash")
+        .find("a")
+        .text()
+    );
+  }
+
   async torrent(url) {
     try {
       const { data } = await axios.get(url);
-      const $ = cheerio.load(data);
-
-      return (
-        $("a[href^=magnet]")
-          .eq(0)
-          .attr("href") ||
-        $(".torrenthash")
-          .find("a")
-          .text()
-      );
+      return this.torrentFromString(data);
     } catch (err) {
       throw "There was a problem extracting " + url;
     }
