@@ -9,7 +9,7 @@
     "lint": "eslint ."
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">=8.0.0"
   },
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "files": [
       "!**/lib/thepiratebay.*"
     ],
-    "concurrency": 2,
+    "concurrency": 1,
     "failWithoutAssertions": false,
     "verbose": true,
     "timeout": "25s"
