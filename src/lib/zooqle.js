@@ -1,5 +1,5 @@
 const axios = require("axios");
-const cheerio = require("cheerio");
+const { parse } = require("node-html-parser");
 
 const nonHumanizeNumbers = value => {
   if (value.endsWith("K")) {
@@ -9,12 +9,11 @@ const nonHumanizeNumbers = value => {
 };
 
 const search = async (query, zooqle_url, page) => {
-  let data_content = {};
-  let torrent_content = [];
-  let search_query = query.split(" ").join("+");
-  let search_url = `${zooqle_url}/search/?pg=${page}&q=${search_query}&s=ns&v=t&sd=d`;
+  const search_query = query.split(" ").join("+");
+  const search_url = `${zooqle_url}/search/?pg=${page}&q=${search_query}&s=ns&v=t&sd=d`;
 
   try {
+    const torrent_content = [];
     const { data } = await axios.get(search_url, {
       headers: {
         "User-Agent":
@@ -22,55 +21,29 @@ const search = async (query, zooqle_url, page) => {
       },
       timeout: 10000
     });
-    const $ = cheerio.load(data);
+    const root = parse(data).querySelectorAll("table.table-torrents tr");
+    root.shift();
 
-    // console.log(body);
-    $("table.table-torrents tr").each((index, torrents) => {
-      let torrent_title, torrent_link;
+    for (const element of root) {
+      const a = element.querySelectorAll("a");
+      const seeds = element.querySelectorAll("div.prog-green")[0].text;
+      const leechs = element.querySelectorAll("div.prog-yellow")[0].text;
+      const size = element.querySelectorAll("div.prog-blue")[0].text;
+      const date_added = element.querySelectorAll(
+        "td.text-nowrap.text-muted.smaller"
+      )[0].text;
 
-      let find_torrent_title = $(torrents).find("a.small");
+      torrent_content.push({
+        title: a[0].text,
+        category: "",
+        seeds: nonHumanizeNumbers(seeds),
+        leechs: nonHumanizeNumbers(leechs),
+        date_added,
+        size,
+        torrent_link: a[2].attributes.href
+      });
+    }
 
-      torrent_title = find_torrent_title.text();
-      if (torrent_title) {
-        let find_torrent_size = $(torrents).find("div.prog-blue");
-        let find_torrent_seeders = $(torrents).find("div.prog-green");
-
-        let find_torrent_leechers = $(torrents).find("div.prog-yellow");
-
-        let find_date_added = $(torrents).find(
-          "td.text-nowrap.text-muted.smaller"
-        );
-
-        let links = $(torrents).find("a");
-        $(links).each((i, link) => {
-          if (
-            $(link)
-              .attr("href")
-              .indexOf("magnet:?xt=urn:") > -1 &&
-            $(link).attr("href") !== null
-          ) {
-            torrent_link = $(link).attr("href");
-          }
-        });
-
-        let torrent_size = find_torrent_size.text();
-        let torrent_seed = find_torrent_seeders.text();
-        let torrent_leech = find_torrent_leechers.text();
-        let date_added = find_date_added.text();
-
-        data_content = {
-          title: torrent_title,
-          category: "",
-          seeds: nonHumanizeNumbers(torrent_seed),
-          leechs: nonHumanizeNumbers(torrent_leech),
-          size: torrent_size,
-          torrent_link: torrent_link,
-          date_added: date_added
-        };
-
-        torrent_content.push(data_content);
-      }
-    });
     return torrent_content;
   } catch (err) {
     throw "\u2717 There was a problem loading Zooqle";
