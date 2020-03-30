@@ -1,47 +1,39 @@
 const axios = require("axios");
-const cheerio = require("cheerio");
+const { parse } = require("node-html-parser");
 
 const search = async (query, torrentproject_url, page) => {
-  let search_query = query.split(" ").join("+");
-  let search_url = `${torrentproject_url}/?t=${search_query}&p=${page - 1}/`;
-  let data_content = {};
-  let torrent_content = [];
+  const search_query = query.split(" ").join("+");
+  const search_url = `${torrentproject_url}/?t=${search_query}&p=${page - 1}/`;
 
   try {
+    const torrent_content = [];
     const { data } = await axios.get(search_url, { timeout: 10000 });
-    const $ = cheerio.load(data);
+    const root = parse(data).querySelectorAll("div");
 
-    $("#similarfiles > div")
-      .slice(1)
-      .each((index, torrents) => {
-        let elem = $(torrents).children();
+    for (const element of root) {
+      const info = element.querySelectorAll("span");
 
-        let torrent_verified = elem.find(".v").text();
-        let torrent_site = elem.find("a").attr("href");
-        let title = elem
-          .eq(0)
-          .text()
-          .replace("⭐", "")
-          .trim();
-        let seeds = elem.eq(1).text();
-        let leechs = elem.eq(2).text();
+      if (info.length === 6 || info.length === 7) {
+        const title = info[0].text.replace("⭐", "").trim();
+        const torrent_link = element.querySelectorAll("a")[0].attributes.href;
+        const torrent_verified = element.querySelectorAll(".v").length === 1;
+        if (torrent_verified) {
+          info.shift();
+        }
 
-        let size = elem.eq(4).text();
-        let date_added = elem.eq(3).text();
-
-        data_content = {
-          title: title,
+        torrent_content.push({
+          title,
           category: "",
-          seeds: Number(seeds),
-          leechs: Number(leechs),
-          size: size,
-          torrent_verified: torrent_verified ? true : false,
-          torrent_site: torrentproject_url + torrent_site,
-          date_added: date_added
-        };
+          seeds: Number(info[2].text),
+          leechs: Number(info[3].text),
+          date_added: info[4].text,
+          size: info[5].text,
+          torrent_verified,
+          torrent_link: torrentproject_url + torrent_link
+        });
+      }
+    }
 
-        torrent_content.push(data_content);
-      });
     return torrent_content;
   } catch (err) {
     throw "\u2717 There was a problem loading TorrentProject";
