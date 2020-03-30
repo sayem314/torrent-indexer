@@ -15,9 +15,8 @@ const sleep = ms => {
 let rarbg_token = { token: null, updated: 0 };
 
 const search = async (query, rarbg_api_url, category) => {
-  let search_query = query.split(" ").join("+");
-  let data_content = {};
-  let torrent_content = [];
+  const search_query = query.split(" ").join("+");
+  const torrent_content = [];
 
   try {
     // get token
@@ -53,27 +52,19 @@ const search = async (query, rarbg_api_url, category) => {
     });
 
     if (!data.error) {
-      for (let torrent in data.torrent_results) {
-        let title = data.torrent_results[torrent].title;
-        let torrent_link = data.torrent_results[torrent].download;
-        let seeds = data.torrent_results[torrent].seeders;
-        let leechs = data.torrent_results[torrent].leechers;
-        let size = bytesToSize(data.torrent_results[torrent].size);
-        let date_added = data.torrent_results[torrent].pubdate.split("+")[0];
-
-        data_content = {
-          title: title,
+      for (const torrent of data.torrent_results) {
+        torrent_content.push({
+          title: torrent.title,
           category: "",
-          seeds: seeds,
-          leechs: leechs,
-          size: size,
-          torrent_link: torrent_link,
-          date_added: date_added
-        };
-
-        torrent_content.push(data_content);
+          seeds: torrent.seeders,
+          leechs: torrent.leechers,
+          size: bytesToSize(torrent.size),
+          date_added: torrent.pubdate.split("+")[0],
+          torrent_link: torrent.download
+        });
       }
     }
+
     return torrent_content;
   } catch (err) {
     throw "\u2717 There was a problem loading Rarbg";
