@@ -12,18 +12,17 @@ const search = async (query, limetorrents_url, page, category) => {
     root.shift();
 
     for (const element of root) {
-      const title = element.querySelectorAll(".tdleft")[0].text;
-      const torrent_link = element.querySelectorAll(".tt-name a")[0].attributes
-        .href;
-      const seeds = element.querySelectorAll("td.tdseed")[0].text;
-      const leeches = element.querySelectorAll("td.tdleech")[0].text;
+      const title = element.querySelector(".tdleft").text;
+      const torrent_link = element.querySelector(".tt-name a").attributes.href;
+      const seeds = element.querySelector("td.tdseed").text;
+      const leeches = element.querySelector("td.tdleech").text;
       const info = element.querySelectorAll("td.tdnormal");
 
       torrent_content.push({
         title,
         category: "",
-        seeds: Number(seeds),
-        leechs: Number(leeches),
+        seeds: Number(seeds.replace(",", "")),
+        leechs: Number(leeches.replace(",", "")),
         date_added: info[0].text.split(" -")[0],
         size: info[1].text,
         torrent_link

@@ -1,0 +1,28 @@
+const test = require("ava");
+const { search } = require("./eztv");
+const { sources } = require("../config");
+const { expect } = require("chai");
+
+test("should work properly", async () => {
+  const { url } = sources.eztv;
+  const results = await search("rick and morty s04e01", url);
+  expect(results).to.be.an("array");
+  expect(results.length).to.be.at.least(5);
+
+  for (const item of results) {
+    expect(item.title).to.be.an("string");
+    expect(item.title.length).to.be.at.least(10);
+
+    expect(item.seeds).to.be.at.an("number");
+    expect(item.seeds).to.be.at.least(0);
+
+    expect(item.date_added).to.be.an("string");
+    expect(item.date_added.length).to.be.at.least(3);
+
+    expect(item.size).to.be.an("string");
+    expect(item.size).to.include(".");
+
+    expect(item.torrent_link).to.be.an("string");
+    expect(item.torrent_link).to.include("magnet:?xt=urn:btih:");
+  }
+});

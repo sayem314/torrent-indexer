@@ -43,7 +43,7 @@ const search = async (query, rarbg_api_url, category) => {
       rarbg_token.token
     }`;
 
-    await sleep(2200);
+    await sleep(2500);
 
     const { data } = await axios.get(search_url, {
       headers: {
