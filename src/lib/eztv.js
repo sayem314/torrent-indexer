@@ -1,58 +1,39 @@
 const axios = require("axios");
-const cheerio = require("cheerio");
+const { parse } = require("node-html-parser");
 
 const search = async (query, eztv_url) => {
-  let search_query = query.split(" ").join("-");
-  let search_url = eztv_url + "/search/" + search_query;
-  let data_content = {};
-  let torrent_content = [];
+  const search_query = query.split(" ").join("-");
+  const search_url = eztv_url + "/search/" + search_query;
 
   try {
+    const torrent_content = [];
     const { data } = await axios.get(search_url, {
       headers: {
         "User-Agent": "request"
       },
       timeout: 10000
     });
-    const $ = cheerio.load(data);
+    const root = parse(data).querySelectorAll("tr.forum_header_border");
 
-    let eztv_link,
-      torrent_title,
-      torrent_size,
-      torrent_seeds,
-      torrent_leech,
-      date_added;
+    for (const element of root) {
+      const title = element.querySelectorAll("a.epinfo")[0].text;
+      const torrent_link = element.querySelectorAll("a.magnet")[0].attributes
+        .href;
+      const seeds = element.querySelectorAll("td.forum_thread_post_end")[0]
+        .text;
+      const info = element.querySelectorAll("td.forum_thread_post");
 
-    $("tr.forum_header_border").each((index, torrent) => {
-      eztv_link = $(torrent)
-        .find("a.magnet")
-        .attr("href");
-      torrent_title = $(torrent)
-        .find("a.epinfo")
-        .text();
-      torrent_size = $(torrent)
-        .find("a.epinfo")
-        .attr("title")
-        .match(/\([^)]+\)$/)[0]
-        .slice(1, -1);
-      torrent_seeds = $("td.forum_thread_post_end", torrent).text();
-      torrent_leech = "";
-      date_added = $("td.forum_thread_post_end", torrent)
-        .prev()
-        .text();
-
-      data_content = {
-        title: torrent_title,
+      torrent_content.push({
+        title,
         category: "",
-        seeds: Number(torrent_seeds),
-        leechs: torrent_leech,
-        size: torrent_size,
-        torrent_link: eztv_link,
-        date_added: date_added
-      };
+        seeds: Number(seeds),
+        leechs: "",
+        date_added: info[4].text,
+        size: info[3].text,
+        torrent_link
+      });
+    }
 
-      torrent_content.push(data_content);
-    });
     return torrent_content;
   } catch (err) {
     throw "\u2717 There was a problem loading Eztv";
