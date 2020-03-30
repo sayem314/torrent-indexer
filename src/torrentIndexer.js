@@ -1,10 +1,9 @@
 const axios = require("axios");
-const cheerio = require("cheerio");
+const { parse } = require("node-html-parser");
 const { sources } = require("./config");
 
 const YtsSearch = require("./sources/yts");
 const LeetxSearch = require("./sources/1337x");
-const Torrentz2Search = require("./sources/torrentz2");
 const EztvSearch = require("./sources/eztv");
 const RarbgSearch = require("./sources/rarbg");
 const SkySearch = require("./sources/skytorrents");
@@ -23,7 +22,6 @@ class TorrentIndexer {
 
     this.YTS = new YtsSearch(this.sources.yts);
     this.LEETX = new LeetxSearch(this.sources.leetx);
-    this.TORRENTZ2 = new Torrentz2Search(this.sources.torrentz2);
     this.EZTV = new EztvSearch(this.sources.eztv);
     this.RARBG = new RarbgSearch(this.sources.rarbg);
     this.SKY = new SkySearch(this.sources.sky);
@@ -40,7 +38,6 @@ class TorrentIndexer {
       switch (type) {
         case "movie":
           results = await Promise.all([
-            this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page, "movies"),
             this.SKY.search(query, type, page, "movie"),
             this.TPB.search(query, type, page),
@@ -53,7 +50,6 @@ class TorrentIndexer {
           break;
         case "series":
           results = await Promise.all([
-            this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page, "tv"),
             this.SKY.search(query, type, page, "show"),
             this.TPB.search(query, type, page),
@@ -66,7 +62,6 @@ class TorrentIndexer {
           break;
         case "anime":
           results = await Promise.all([
-            this.TORRENTZ2.search(query, type, page),
             this.SKY.search(query, type, page),
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
@@ -77,7 +72,6 @@ class TorrentIndexer {
           break;
         case "music":
           results = await Promise.all([
-            this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page, "2;23;24;25;26"),
             this.SKY.search(query, type, page),
             this.TPB.search(query, type, page),
@@ -88,7 +82,6 @@ class TorrentIndexer {
           break;
         default:
           results = await Promise.all([
-            this.TORRENTZ2.search(query, type, page),
             this.RARBG.search(query, type, page),
             this.SKY.search(query, type, page),
             this.TPB.search(query, type, page),
@@ -109,14 +102,18 @@ class TorrentIndexer {
   }
 
   torrentFromString(data) {
-    const $ = cheerio.load(data);
+    const root = parse(data);
     return (
-      $("a[href^=magnet]")
-        .eq(0)
-        .attr("href") ||
-      $(".torrenthash")
-        .find("a")
-        .text()
+      root.querySelector(".torrenthash a").text ||
+      root
+        .querySelectorAll("a")
+        .map(a => {
+          const href = a.attributes.href;
+          if (href.startsWith("magnet:")) {
+            return href;
+          }
+        })
+        .filter(magnet => magnet)[0]
     );
   }
 
