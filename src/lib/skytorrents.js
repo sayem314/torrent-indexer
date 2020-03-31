@@ -39,7 +39,8 @@ class Sky extends TorrentSource {
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.error(err);
+      console.log("\u2717 There was a problem loading " + this.name);
+      console.error(err.message);
       return [];
     }
   }
