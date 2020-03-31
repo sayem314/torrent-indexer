@@ -1,117 +1,71 @@
-## torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer)
+## torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer) [![npm downloads per month](https://img.shields.io/npm/dm/torrent-indexer.svg)](https://www.npmjs.com/package/torrent-indexer) [![npm version](https://img.shields.io/npm/v/torrent-indexer?label=version)](https://www.npmjs.com/package/torrent-indexer)
 
 Finds the best torrents (Movies, Series and Other stuff) across multiple sources.
 
-### Install:
+### Installation
 
 ```bash
-$ npm i torrent-indexer
-  or
 $ yarn add torrent-indexer
 ```
 
-### Usage:
+### Usage
+
+Here's a simple example to search for torrents.
 
 ```js
 const TorrentIndexer = require("torrent-indexer");
 const torrentIndexer = new TorrentIndexer();
+
+await torrentIndexer.search("rick and morty s04e04");
 ```
 
-```js
-// search tv series
-const series = await torrentIndexer.search("rick and morty s04e04", "series");
+### API
 
-[
-  {
-    resolution: '1080p',
-    repack: true,
-    source: 'webrip',
-    codec: 'x264',
-    group: 'CtrlHD[rartv]',
-    season: 4,
-    episode: 4,
-    score: 24.205,
-    title: 'Rick and Morty',
-    fileName: 'Rick.and.Morty.S04E04.REPACK.1080p.AMZN.WEBRip.DDP5.1.x264-CtrlHD[rartv]',
-    size: '538MB',
-    link: 'magnet:?xt=urn:btih:...',
-    seeders: 130,
-    leechers: 9,
-    uploaded: '2019-12-11 00:01:25 ',
-    sourceName: 'Rarbg'
-  },
-  ...
-]
+```js
+search(query, String(type);
 ```
 
-```js
-// search movies
-const movies = await torrentIndexer.search("x-men: dark phoenix 2019", "movie");
+| Parameters | Required |               Accepted Values |
+| ---------- | :------: | ----------------------------: |
+| type       |    No    | movie, series, music or anime |
 
-[
-  {
-    year: 2019,
-    resolution: '1080p',
-    source: 'hdcam',
-    codec: 'x264',
-    group: 'NAHOM',
-    title: 'X-Men Dark Phoenix',
-    fileName: 'X-Men.Dark.Phoenix.2019.HDCAM 1080p Ita Eng x264-NAHOM',
-    score: 0.348,
-    size: '1.87 GB',
-    link: 'magnet:?xt=urn:btih:...',
-    seeders: 26,
-    leechers: 1,
-    uploaded: '9 months ago',
-    sourceName: 'Sky Torrents'
-  },
-  ...
-]
+Search method returns array of items:
+
+| Property     |   Type   |           Optional |                                                                                                                                        Description |
+| ------------ | :------: | -----------------: | -------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `fileName`   | `string` |                :x: |                                                                                  torrent name found in the sites, might be stripped for some sites |
+| `seeders`    | `number` |                :x: |                                                                                                                                      total seeders |
+| `leechers`   | `number` |                :x: |                                                                                                                        total leechers (0 for eztv) |
+| `uploaded`   | `string` |                :x: |                                                                                                             upload dates, not standard date format |
+| `link`       | `string` | :white_check_mark: |                                                                                         contains either downloadable torrent url or magnet address |
+| `site`       | `string` | :white_check_mark: | if magnet or direct link of .torrent cannot be extracted this property will contain specific page address to extract using `.torrent(site)` method |
+| `resolution` | `string` | :white_check_mark: |                                                                                                             for movies and tv show. example: 1080p |
+
+Specific for movies and tv show (Optional)
+
+| Property     |   Type   |          Example |
+| ------------ | :------: | ---------------: |
+| `resolution` | `string` |          `1080p` |
+| `source`     | `string` |         `webrip` |
+| `codec`      | `string` |           `x264` |
+| `group`      | `string` |            `PSA` |
+| `season`     | `number` |              `4` |
+| `episode`    | `number` |              `1` |
+| `title`      | `string` | `Rick and Morty` |
+| `sourceName` | `string` |          `1337x` |
+
+```js
+torrent(url);
 ```
 
-```js
-// search anime
-const anime = await torrentIndexer.search("ride your wave", "anime");
+| Parameters | Required |                                                                     Description |
+| ---------- | :------: | ------------------------------------------------------------------------------: |
+| url        |   Yes    | Using this method you can retrieve magnet or torrent hash from `.site` property |
 
-[
-  {
-    year: 2019,
-    resolution: '720p',
-    source: 'bluray',
-    codec: 'x264',
-    group: 'KangMus',
-    score: 29.2,
-    title: 'Ride Your Wave',
-    fileName: 'Ride.Your.Wave.2019.720p.BluRay.x264.650MB-KangMus',
-    size: '650.8 MB',
-    seeders: 2,
-    leechers: 0,
-    site: 'https://....',
-    uploaded: '1 month ago',
-    sourceName: 'TorrentProject'
-  },
-  ...
-]
-```
+Example:
 
 ```js
-// search music or other stuff
-const music = await torrentIndexer.search("lana del rey");
-
-[
-  {
-    title: 'Lana Del Rey',
-    fileName: 'Lana Del Rey',
-    score: 0.444,
-    size: '0 B',
-    link: 'magnet:?xt=urn:btih:...',
-    seeders: 20,
-    leechers: 4,
-    uploaded: '2 years ago',
-    sourceName: 'Sky Torrents'
-  },
-  ...
-]
+await torrentIndexer.torrent(torrent.site);
 ```
 
 ### Donations
