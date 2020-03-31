@@ -1,31 +1,34 @@
 const test = require("ava");
-const { search } = require("./yts");
+const Yts = require("./yts");
 const { sources } = require("../config");
 const { expect } = require("chai");
 
+const yts = new Yts(sources.yts);
+
 test("should work properly", async () => {
   const { url } = sources.yts;
-  const results = await search("x-men: dark phoenix 2019", url, 1);
+  const results = await yts.search("x-men: dark phoenix 2019");
   expect(results).to.be.an("array");
   expect(results.length).to.be.at.least(2);
 
   for (const item of results) {
-    expect(item.title).to.be.an("string");
-    expect(item.title.length).to.be.at.least(10);
+    expect(item.title).to.be.equal("X-Men: Dark Phoenix");
+    expect(item.fileName).to.be.an("string");
+    expect(item.fileName.length).to.be.at.least(10);
 
-    expect(item.seeds).to.be.at.an("number");
-    expect(item.seeds).to.be.at.least(0);
+    expect(item.seeders).to.be.an("number");
+    expect(item.seeders).to.be.least(0);
 
-    expect(item.leechs).to.be.at.an("number");
-    expect(item.leechs).to.be.at.least(0);
+    expect(item.leechers).to.be.an("number");
+    expect(item.leechers).to.be.least(0);
 
-    expect(item.date_added).to.be.an("string");
-    expect(item.date_added.length).to.be.at.least(10);
+    expect(item.uploaded).to.be.an("string");
+    expect(item.uploaded.length).to.be.at.least(6);
 
     expect(item.size).to.be.an("string");
-    expect(item.size).to.include(".");
+    expect(item.size).to.include("B");
 
-    expect(item.torrent_link).to.be.an("string");
-    expect(item.torrent_link).to.include(url + "/torrent/download/");
+    expect(item.link).to.be.an("string");
+    expect(item.link).to.include(url + "/torrent/download/");
   }
 });

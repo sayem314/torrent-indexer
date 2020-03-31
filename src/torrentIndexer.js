@@ -2,15 +2,15 @@ const axios = require("axios");
 const { parse } = require("node-html-parser");
 const { sources } = require("./config");
 
-const YtsSearch = require("./sources/yts");
-const LeetxSearch = require("./sources/1337x");
-const EztvSearch = require("./sources/eztv");
-const RarbgSearch = require("./sources/rarbg");
-const SkySearch = require("./sources/skytorrents");
-const ZooqleSearch = require("./sources/zooqle");
-const ThePirateBaySearch = require("./sources/thepiratebay");
-const LimetorrentsSearch = require("./sources/limetorrents");
-const TorrentProjectSearch = require("./sources/torrentproject");
+const YtsSearch = require("./lib/yts");
+const LeetxSearch = require("./lib/1337x");
+const EztvSearch = require("./lib/eztv");
+const RarbgSearch = require("./lib/rarbg");
+const SkySearch = require("./lib/skytorrents");
+const ZooqleSearch = require("./lib/zooqle");
+const ThePirateBaySearch = require("./lib/thepiratebay");
+const LimetorrentsSearch = require("./lib/limetorrents");
+const TorrentProjectSearch = require("./lib/torrentproject");
 
 class TorrentIndexer {
   constructor(config = {}) {
@@ -89,7 +89,7 @@ class TorrentIndexer {
             this.YTS.search(query, type, page),
             this.LEETX.search(query, type, page),
             this.EZTV.search(query, type, page),
-            this.LIMETORRENTS.search(query, type, page, "all"),
+            this.LIMETORRENTS.search(query, type, page),
             this.ZOOQLE.search(query, type, page)
           ]);
       }

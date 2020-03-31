@@ -1,6 +1,6 @@
 const test = require("ava");
 const { expect } = require("chai");
-const TorrentSource = require("./../src/sources/torrentSource");
+const TorrentSource = require("./../src/lib/torrentSource");
 
 class TestSource extends TorrentSource {
   constructor(name) {
