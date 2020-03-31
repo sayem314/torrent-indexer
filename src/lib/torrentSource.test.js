@@ -8,7 +8,7 @@ class TestSource extends TorrentSource {
   }
 
   async search(results, type) {
-    return super.reconstitute(results, results[0].fileName, type);
+    return this.reconstitute(results, results[0].fileName, type);
   }
 }
 
@@ -30,6 +30,7 @@ test("should add fileName and sourceName properly", async () => {
 test("should respect type: movie", async () => {
   const results = await testSource.search(testResults, "movie");
   expect(results.length).to.equal(1);
+  expect(results[0].fileName).to.equal(testResults[2].fileName);
   expect(Object.keys(results[0])).not.to.include("episode");
   expect(Object.keys(results[0])).not.to.include("season");
 });
@@ -37,10 +38,11 @@ test("should respect type: movie", async () => {
 test("should respect type: series", async () => {
   const results = await testSource.search(testResults, "series");
   expect(results.length).to.equal(2);
-  expect(Object.keys(results[0])).to.include("episode");
-  expect(Object.keys(results[0])).to.include("season");
-  expect(Object.keys(results[1])).to.include("episode");
-  expect(Object.keys(results[1])).to.include("season");
+
+  for (const item of results) {
+    expect(Object.keys(item)).to.include("episode");
+    expect(Object.keys(item)).to.include("season");
+  }
 });
 
 test("should respect if type: undefined", async () => {

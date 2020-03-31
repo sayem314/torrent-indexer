@@ -25,44 +25,61 @@ class TorrentSource {
     this.sourceName = sourceName;
   }
 
-  reconstitute(searchResults, query, type) {
+  reconstitute(results, query, type) {
     const parsedResults = [];
-    searchResults.forEach(searchResult => {
+
+    for (const item of results) {
       try {
-        if (!searchResult.seeders >= 1) return; // return undefined if no seeders
+        // return undefined if no seeders
+        if (item.seeders >= 1) {
+          // at least match query by 20%
+          const similarity = compareTwoStrings(query, item.fileName);
+          if (similarity >= 0.2) {
+            const torrentData = ptt.parse(item.fileName);
 
-        const similarity = compareTwoStrings(query, searchResult.fileName);
-        if (similarity >= 0.2) {
-          const torrentData = ptt.parse(searchResult.fileName);
-          if (type && !this.isTorrentOfType(torrentData, type)) return;
+            if (this.isTorrentOfType(torrentData, type)) {
+              if (!torrentData.score) {
+                torrentData.score = 0;
+              }
+              torrentData.score += Number(similarity.toFixed(3));
 
-          if (!torrentData.score) torrentData.score = 0;
-          torrentData.score += Number(similarity.toFixed(3));
+              // add source site name
+              torrentData.sourceName = this.sourceName;
 
-          // add source site name
-          torrentData.sourceName = this.sourceName;
-
-          parsedResults.push({ ...searchResult, ...torrentData });
+              parsedResults.push({ ...item, ...torrentData });
+            }
+          }
         }
       } catch (err) {
-        console.error(err);
+        console.log("\u2717 There was an error parsing " + this.sourceName);
+        console.error(err.message);
       }
-    });
+    }
 
     return parsedResults;
   }
 
   isTorrentOfType(torrent, type) {
-    const isSeries =
-      torrent.episode !== null &&
-      torrent.episode !== undefined &&
-      torrent.episode !== "" &&
-      torrent.season !== null &&
-      torrent.season !== undefined &&
-      torrent.season !== "";
+    /*eslint-disable */
+    if (type) {
+      switch (type) {
+        case "movie":
+        case "movies":
+          const isSeries = torrent.episode || torrent.season;
+          return isSeries ? false : true;
+          break;
+        case "tv":
+        case "series":
+          return torrent.episode || torrent.season;
+          break;
+        default:
+          return true;
+      }
 
-    if (type === "series") return isSeries;
-    if (type === "movie" || type === "movies") return !isSeries;
+      return true;
+    }
+    /*eslint-enable */
+
     return true;
   }
 }
