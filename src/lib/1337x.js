@@ -28,19 +28,18 @@ class Leetx extends TorrentSource {
         const date_added = element.querySelectorAll("td.coll-date")[0].text;
 
         torrent_content.push({
-          title: a.text.replace("⭐", "").trim(),
-          category: "",
-          seeds: Number(seeds),
-          leechs: Number(leeches),
-          date_added,
+          fileName: a.text.replace("⭐", "").trim(),
+          seeders: Number(seeds),
+          leechers: Number(leeches),
+          uploaded: date_added,
           size,
-          torrent_site: this.url + a.attributes.href
+          site: this.url + a.attributes.href
         });
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

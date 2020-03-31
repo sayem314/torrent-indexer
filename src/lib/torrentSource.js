@@ -25,43 +25,24 @@ class TorrentSource {
     this.sourceName = sourceName;
   }
 
-  reconstitute(searchResults, searchQuery, type) {
+  reconstitute(searchResults, query, type) {
     const parsedResults = [];
     searchResults.forEach(searchResult => {
       try {
-        const similarity = compareTwoStrings(searchQuery, searchResult.title);
+        if (!searchResult.seeders >= 1) return; // return undefined if no seeders
+
+        const similarity = compareTwoStrings(query, searchResult.fileName);
         if (similarity >= 0.2) {
-          const torrentData = ptt.parse(searchResult.title);
-          torrentData.fileName = searchResult.title;
+          const torrentData = ptt.parse(searchResult.fileName);
+          if (type && !this.isTorrentOfType(torrentData, type)) return;
 
-          if (!torrentData.score) {
-            torrentData.score = 0;
-          }
+          if (!torrentData.score) torrentData.score = 0;
           torrentData.score += Number(similarity.toFixed(3));
-
-          if (type) {
-            if (!this.isTorrentOfType(torrentData, type)) return;
-          }
-
-          if (searchResult.size) torrentData.size = searchResult.size;
-          if (searchResult.torrent_verified)
-            torrentData.verified = searchResult.torrent_verified;
-          if (searchResult.torrent_link)
-            torrentData.link = searchResult.torrent_link;
-
-          if (!searchResult.seeds >= 1) return; // return undefined if no seeders
-          torrentData.seeders = searchResult.seeds;
-          torrentData.leechers = searchResult.leechs;
-
-          if (searchResult.torrent_site)
-            torrentData.site = searchResult.torrent_site;
-          if (searchResult.date_added)
-            torrentData.uploaded = searchResult.date_added;
 
           // add source site name
           torrentData.sourceName = this.sourceName;
 
-          parsedResults.push(torrentData);
+          parsedResults.push({ ...searchResult, ...torrentData });
         }
       } catch (err) {
         console.error(err);

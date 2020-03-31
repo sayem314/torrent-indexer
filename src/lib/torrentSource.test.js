@@ -1,6 +1,6 @@
 const test = require("ava");
 const { expect } = require("chai");
-const TorrentSource = require("./../src/lib/torrentSource");
+const TorrentSource = require("./torrentSource");
 
 class TestSource extends TorrentSource {
   constructor(name) {
@@ -8,20 +8,20 @@ class TestSource extends TorrentSource {
   }
 
   async search(results, type) {
-    return super.reconstitute(results, results[0].title, type);
+    return super.reconstitute(results, results[0].fileName, type);
   }
 }
 
 const testSource = new TestSource("testSource");
 const testResults = [
-  { title: "Test Result 2017 s01e06", seeds: 1 },
-  { title: "Test Result 2017 1x10", seeds: 1 },
-  { title: "Test Result 2017", seeds: 1 }
+  { fileName: "Test Result 2017 s01e06", seeders: 1 },
+  { fileName: "Test Result 2017 1x10", seeders: 1 },
+  { fileName: "Test Result 2017", seeders: 1 }
 ];
 
 test("should add fileName and sourceName properly", async () => {
   const results = await testSource.search([
-    { title: "Test Result 2017", seeds: 1 }
+    { fileName: "Test Result 2017", seeders: 1 }
   ]);
   expect(results[0].sourceName).to.equal("testSource");
   expect(results[0].fileName).to.equal("Test Result 2017");

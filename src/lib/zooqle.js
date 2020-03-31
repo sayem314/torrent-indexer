@@ -42,13 +42,12 @@ class Zooqle extends TorrentSource {
 
         if (seeds && leechs && size) {
           torrent_content.push({
-            title: a[0].text,
-            category: "",
-            seeds: nonHumanizeNumbers(seeds.text),
-            leechs: nonHumanizeNumbers(leechs.text),
-            date_added,
+            fileName: a[0].text,
+            seeders: nonHumanizeNumbers(seeds.text),
+            leechers: nonHumanizeNumbers(leechs.text),
+            uploaded: date_added,
             size: size.text,
-            torrent_link: a[2].attributes.href
+            link: a[2].attributes.href
           });
         }
       }
@@ -59,7 +58,7 @@ class Zooqle extends TorrentSource {
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

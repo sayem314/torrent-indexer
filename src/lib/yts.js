@@ -32,12 +32,12 @@ class Yts extends TorrentSource {
             const torrent_link = this.url + "/torrent/download/" + torrent.hash;
 
             torrent_content.push({
-              title: title + " " + torrent.quality,
-              seeds: torrent.seeds,
-              leechs: torrent.peers,
+              fileName: title + " " + torrent.quality,
+              seeders: torrent.seeds,
+              leechers: torrent.peers,
               size: torrent.size,
-              torrent_link: torrent_link,
-              date_added: torrent.date_uploaded.split(" ")[0]
+              uploaded: torrent.date_uploaded.split(" ")[0],
+              link: torrent_link
             });
           }
         }
@@ -45,7 +45,7 @@ class Yts extends TorrentSource {
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

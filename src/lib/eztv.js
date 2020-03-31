@@ -35,19 +35,18 @@ class Eztv extends TorrentSource {
         const info = element.querySelectorAll("td.forum_thread_post");
 
         torrent_content.push({
-          title,
-          category: "",
-          seeds: Number(seeds),
-          leechs: "",
-          date_added: info[4].text,
+          fileName: title,
+          seeders: Number(seeds),
+          leechers: 0,
+          uploaded: info[4].text,
           size: info[3].text,
-          torrent_link
+          link: torrent_link
         });
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

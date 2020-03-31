@@ -29,21 +29,20 @@ class TorrentProject extends TorrentSource {
           }
 
           torrent_content.push({
-            title,
-            category: "",
-            seeds: Number(info[2].text),
-            leechs: Number(info[3].text),
-            date_added: info[4].text,
+            fileName: title,
+            seeders: Number(info[2].text),
+            leechers: Number(info[3].text),
+            uploaded: info[4].text,
             size: info[5].text,
-            torrent_verified,
-            torrent_link: this.url + torrent_link
+            verified: torrent_verified,
+            link: this.url + torrent_link
           });
         }
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

@@ -66,20 +66,19 @@ class Rarbg extends TorrentSource {
       if (!data.error) {
         for (const torrent of data.torrent_results) {
           torrent_content.push({
-            title: torrent.title,
-            category: "",
-            seeds: torrent.seeders,
-            leechs: torrent.leechers,
+            fileName: torrent.title,
+            seeders: torrent.seeders,
+            leechers: torrent.leechers,
             size: bytesToSize(torrent.size),
-            date_added: torrent.pubdate.split("+")[0],
-            torrent_link: torrent.download
+            uploaded: torrent.pubdate.split("+")[0],
+            link: torrent.download
           });
         }
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

@@ -27,19 +27,18 @@ class Sky extends TorrentSource {
         const info = element.querySelectorAll("td");
 
         torrent_content.push({
-          title: a[0].text,
-          category: "",
-          seeds: Number(info[4].text),
-          leechs: Number(info[5].text),
-          date_added: info[3].text,
+          fileName: a[0].text,
+          seeders: Number(info[4].text),
+          leechers: Number(info[5].text),
+          uploaded: info[3].text,
           size: info[1].text,
-          torrent_link: a[2].attributes.href
+          link: a[2].attributes.href
         });
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }

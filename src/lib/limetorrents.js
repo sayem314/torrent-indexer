@@ -27,19 +27,18 @@ class Limetorrents extends TorrentSource {
         const info = element.querySelectorAll("td.tdnormal");
 
         torrent_content.push({
-          title,
-          category: "",
-          seeds: Number(seeds.replace(",", "")),
-          leechs: Number(leeches.replace(",", "")),
-          date_added: info[0].text.split(" -")[0],
+          fileName: title,
+          seeders: Number(seeds.replace(",", "")),
+          leechers: Number(leeches.replace(",", "")),
+          uploaded: info[0].text.split(" -")[0],
           size: info[1].text,
-          torrent_link
+          link: torrent_link
         });
       }
 
       return this.reconstitute(torrent_content, query, type);
     } catch (err) {
-      console.log("\u2717 There was a problem loading " + this.name);
+      console.log("\u2717 There was a problem loading " + this.sourceName);
       console.error(err.message);
       return [];
     }
