@@ -21,33 +21,23 @@ class Yts extends TorrentSource {
         encodeURIComponent(query) +
         "&sort=seeds&order=desc&set=1";
       const torrent_content = [];
-      const { data } = await axios.get(search_url, { timeout: 10000 });
+      const response = await axios.get(search_url, { timeout: 10000 });
+      const { movie_count, movies } = response.data.data;
 
-      if (data.data.movie_count > 0) {
-        for (let torrent in data.data.movies) {
-          let title = data.data.movies[torrent].title_long;
+      if (movie_count > 0) {
+        for (const item of movies) {
+          const title = item.title_long;
 
-          for (let torrents in data.data.movies[torrent].torrents) {
-            let torrent_quality =
-              data.data.movies[torrent].torrents[torrents].quality;
-            let torrent_title = title + " " + torrent_quality;
-            let seeds = data.data.movies[torrent].torrents[torrents].seeds;
-            let leechs = data.data.movies[torrent].torrents[torrents].peers;
-            //let torrent_link = data.data.movies[torrent].torrents[torrents].url;
-            let hash = data.data.movies[torrent].torrents[torrents].hash;
-            let torrent_link = this.url + "/torrent/download/" + hash;
-            let size = data.data.movies[torrent].torrents[torrents].size;
-            let date_added = data.data.movies[torrent].torrents[
-              torrents
-            ].date_uploaded.split(" ")[0];
+          for (const torrent of item.torrents) {
+            const torrent_link = this.url + "/torrent/download/" + torrent.hash;
 
             torrent_content.push({
-              title: torrent_title,
-              seeds: seeds,
-              leechs: leechs,
-              size: size,
+              title: title + " " + torrent.quality,
+              seeds: torrent.seeds,
+              leechs: torrent.peers,
+              size: torrent.size,
               torrent_link: torrent_link,
-              date_added: date_added
+              date_added: torrent.date_uploaded.split(" ")[0]
             });
           }
         }
