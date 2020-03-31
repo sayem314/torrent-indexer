@@ -2,13 +2,13 @@
 
 Finds the best torrents (Movies, Series and Other stuff) across multiple sources.
 
-### Installation
+## Installation
 
 ```bash
 $ yarn add torrent-indexer
 ```
 
-### Usage
+## Usage
 
 Here's a simple example to search for torrents.
 
@@ -19,7 +19,9 @@ const torrentIndexer = new TorrentIndexer();
 await torrentIndexer.search("rick and morty s04e04");
 ```
 
-### API
+## API
+
+### `.search()`
 
 ```js
 search(query, String(type);
@@ -53,6 +55,8 @@ Specific for movies and tv show (Optional)
 | `episode`    | `number` |              `1` |
 | `title`      | `string` | `Rick and Morty` |
 | `sourceName` | `string` |          `1337x` |
+
+### `.torrent()`
 
 ```js
 torrent(url);
