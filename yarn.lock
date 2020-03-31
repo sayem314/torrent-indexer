@@ -1566,10 +1566,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-html-parser@^1.2.13:
-  version "1.2.13"
-  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.2.13.tgz#8f59c7654ed317e58064423095e2be5d976658ef"
-  integrity sha512-RTG5oDk3nh1oXQGYtQQa9w0v9LjltgzzO1tv3cpXzb9M/UkpFIZ5v4osx3OYAcnWx/ETBXjxs2cgtD9fhn6Bjw==
+node-html-parser@^1.2.14:
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.2.14.tgz#5570fe4ad03744f80dde3b470aa980fefc6893a1"
+  integrity sha512-Jzdpk6xrZGgR4zB2L85uPvcGN9Z667RxN5mS9RHpv7I0ACcNOS3x8dbKMkQrKMl6N4+xveuQNfxXL4RZRib7Mw==
   dependencies:
     he "1.1.1"
 
