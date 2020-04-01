@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 class Eztv extends TorrentSource {
@@ -18,12 +18,7 @@ class Eztv extends TorrentSource {
       const search_url = this.url + "/search/" + search_query;
       const torrent_content = [];
 
-      const { data } = await axios.get(search_url, {
-        headers: {
-          "User-Agent": "request"
-        },
-        timeout: 10000
-      });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll("tr.forum_header_border");
 
       for (const element of root) {

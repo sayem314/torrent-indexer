@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 class Sky extends TorrentSource {
@@ -16,7 +16,7 @@ class Sky extends TorrentSource {
       )}${category ? "&category=" + category : ""}&page=${page}`;
 
       const torrent_content = [];
-      const { data } = await axios.get(search_url, { timeout: 10000 });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll(
         "table.table.is-striped.is-narrow tr"
       );

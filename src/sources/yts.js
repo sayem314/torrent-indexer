@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 
 class Yts extends TorrentSource {
   constructor(options) {
@@ -21,7 +21,7 @@ class Yts extends TorrentSource {
         encodeURIComponent(query) +
         "&sort=seeds&order=desc&set=1";
       const torrent_content = [];
-      const response = await axios.get(search_url, { timeout: 10000 });
+      const response = await axios.get(search_url);
       const { movie_count, movies } = response.data.data;
 
       if (movie_count > 0) {

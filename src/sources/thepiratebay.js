@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 class ThePirateBay extends TorrentSource {
@@ -15,7 +15,7 @@ class ThePirateBay extends TorrentSource {
       )}/${page - 1}/7/0`;
       const torrent_content = [];
 
-      const { data } = await axios.get(search_url, { timeout: 10000 });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll("tr");
       root.shift();
       root.pop();

@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 
 const bytesToSize = bytes => {
   let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -56,12 +56,7 @@ class Rarbg extends TorrentSource {
 
       await sleep(2200);
 
-      const { data } = await axios.get(search_url, {
-        headers: {
-          "user-agent": "node.js"
-        },
-        timeout: 10000
-      });
+      const { data } = await axios.get(search_url);
 
       if (!data.error) {
         for (const torrent of data.torrent_results) {

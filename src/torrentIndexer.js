@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require("./lib/request");
 const { parse } = require("node-html-parser");
 const { sources } = require("./config");
 

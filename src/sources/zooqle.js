@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 const nonHumanizeNumbers = value => {
@@ -21,13 +21,7 @@ class Zooqle extends TorrentSource {
       const search_url = `${this.url}/search/?pg=${page}&q=${search_query}&s=ns&v=t&sd=d`;
       const torrent_content = [];
 
-      const { data } = await axios.get(search_url, {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36"
-        },
-        timeout: 10000
-      });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll("table.table-torrents tr");
       root.shift();
 

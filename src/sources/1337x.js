@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 class Leetx extends TorrentSource {
@@ -16,7 +16,7 @@ class Leetx extends TorrentSource {
       }/${search_query}/${category ? category + "/" : "/"}${page}/`;
       const torrent_content = [];
 
-      const { data } = await axios.get(search_url, { timeout: 10000 });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll(".table-list tbody tr");
 
       for (const element of root) {

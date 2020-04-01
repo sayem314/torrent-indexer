@@ -36,6 +36,7 @@
     "axios": "^0.19.2",
     "node-html-parser": "^1.2.14",
     "parse-torrent-title": "^1.2.0",
+    "retry-axios": "^2.1.2",
     "string-similarity": "^4.0.1"
   },
   "devDependencies": {

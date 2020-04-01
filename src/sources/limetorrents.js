@@ -1,5 +1,5 @@
 const TorrentSource = require("../lib/torrentSource");
-const axios = require("axios");
+const axios = require("../lib/request");
 const { parse } = require("node-html-parser");
 
 class Limetorrents extends TorrentSource {
@@ -14,7 +14,7 @@ class Limetorrents extends TorrentSource {
       const search_url = `${this.url}/search/${category}/${search_query}/${page}/`;
       const torrent_content = [];
 
-      const { data } = await axios.get(search_url, { timeout: 10000 });
+      const { data } = await axios.get(search_url);
       const root = parse(data).querySelectorAll(".table2 tr");
       root.shift();
 
