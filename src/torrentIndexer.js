@@ -2,15 +2,15 @@ const axios = require("axios");
 const { parse } = require("node-html-parser");
 const { sources } = require("./config");
 
-const YtsSearch = require("./lib/yts");
-const LeetxSearch = require("./lib/1337x");
-const EztvSearch = require("./lib/eztv");
-const RarbgSearch = require("./lib/rarbg");
-const SkySearch = require("./lib/skytorrents");
-const ZooqleSearch = require("./lib/zooqle");
-const ThePirateBaySearch = require("./lib/thepiratebay");
-const LimetorrentsSearch = require("./lib/limetorrents");
-const TorrentProjectSearch = require("./lib/torrentproject");
+const YtsSearch = require("./sources/yts");
+const LeetxSearch = require("./sources/1337x");
+const EztvSearch = require("./sources/eztv");
+const RarbgSearch = require("./sources/rarbg");
+const SkySearch = require("./sources/skytorrents");
+const ZooqleSearch = require("./sources/zooqle");
+const ThePirateBaySearch = require("./sources/thepiratebay");
+const LimetorrentsSearch = require("./sources/limetorrents");
+const TorrentProjectSearch = require("./sources/torrentproject");
 
 class TorrentIndexer {
   constructor(config = {}) {
@@ -37,6 +37,7 @@ class TorrentIndexer {
       /*eslint-disable */
       switch (type) {
         case "movie":
+        case "movies":
           results = await Promise.all([
             this.RARBG.search(query, type, page, "movies"),
             this.SKY.search(query, type, page, "movie"),
@@ -48,6 +49,7 @@ class TorrentIndexer {
             this.ZOOQLE.search(query, type, page, "Movies")
           ]);
           break;
+        case "tv":
         case "series":
           results = await Promise.all([
             this.RARBG.search(query, type, page, "tv"),
@@ -94,6 +96,7 @@ class TorrentIndexer {
           ]);
       }
       /* eslint-enable */
+
       return [].concat.apply([], results).filter(obj => obj);
     } catch (err) {
       console.error(err);

@@ -1,4 +1,4 @@
-const TorrentSource = require("./torrentSource");
+const TorrentSource = require("../lib/torrentSource");
 const axios = require("axios");
 
 const bytesToSize = bytes => {
