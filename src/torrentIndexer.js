@@ -106,12 +106,13 @@ class TorrentIndexer {
 
   torrentFromString(data) {
     const root = parse(data);
+
     const hash = root.querySelector(".torrenthash a");
     if (hash) {
       return hash.text;
     }
 
-    return root
+    const magnet = root
       .querySelectorAll("a")
       .map(a => {
         const href = a.attributes.href;
@@ -120,6 +121,12 @@ class TorrentIndexer {
         }
       })
       .filter(magnet => magnet)[0];
+
+    if (magnet) {
+      return magnet;
+    }
+
+    throw new Error("Unbale to extract hash or magnet");
   }
 
   async torrent(url) {
