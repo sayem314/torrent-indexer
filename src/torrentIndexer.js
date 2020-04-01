@@ -106,18 +106,20 @@ class TorrentIndexer {
 
   torrentFromString(data) {
     const root = parse(data);
-    return (
-      root.querySelector(".torrenthash a").text ||
-      root
-        .querySelectorAll("a")
-        .map(a => {
-          const href = a.attributes.href;
-          if (href.startsWith("magnet:")) {
-            return href;
-          }
-        })
-        .filter(magnet => magnet)[0]
-    );
+    const hash = root.querySelector(".torrenthash a");
+    if (hash) {
+      return hash.text;
+    }
+
+    return root
+      .querySelectorAll("a")
+      .map(a => {
+        const href = a.attributes.href;
+        if (href.startsWith("magnet:")) {
+          return href;
+        }
+      })
+      .filter(magnet => magnet)[0];
   }
 
   async torrent(url) {
@@ -125,7 +127,7 @@ class TorrentIndexer {
       const { data } = await axios.get(url);
       return this.torrentFromString(data);
     } catch (err) {
-      throw "There was a problem extracting " + url;
+      throw new Error(err);
     }
   }
 }
