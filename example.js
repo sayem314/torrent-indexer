@@ -5,20 +5,21 @@ const torrentIndexer = new TorrentIndexer();
 (async function() {
   // search tv series
   const series = await torrentIndexer.search("rick and morty s04e04", "series");
-  console.dir([series[0]]);
+  console.log("Series", series[0]); // show first result
 
   // search movies
-  const movies = await torrentIndexer.search(
-    "x-men: dark phoenix 2019",
-    "movie"
-  );
-  console.dir([movies[0]]);
+  const movies = await torrentIndexer.search("the dark knight 2008", "movie");
+  console.log("Movies", movies[0]); // show first result
 
   // search anime
   const anime = await torrentIndexer.search("ride your wave", "anime");
-  console.dir([anime[0]]);
+  console.log("Anime", anime[0]); // show first result
 
-  // search music or other thing
-  const music = await torrentIndexer.search("lana del rey");
-  console.dir([music[0]]);
+  // search music
+  const music = await torrentIndexer.search("lana del rey", "music");
+  console.log("Music", music[0]); // show first result
+
+  // search other thing in page 2
+  const torrents = await torrentIndexer.search("ubuntu", null, 2);
+  console.log("Other", torrents[0]); // show first result
 })();
