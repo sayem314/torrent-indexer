@@ -1,6 +1,6 @@
 ## torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer) [![npm downloads per month](https://img.shields.io/npm/dm/torrent-indexer.svg)](https://www.npmjs.com/package/torrent-indexer) [![npm version](https://img.shields.io/npm/v/torrent-indexer?label=version)](https://www.npmjs.com/package/torrent-indexer)
 
-Finds the best torrents (Movies, Series and Other stuff) across multiple sources.
+Finds the best torrents (Movies, Series, Anime, Music and Other stuff) across multiple sources.
 
 ## Installation
 
@@ -16,51 +16,86 @@ Here's a simple example to search for torrents.
 const TorrentIndexer = require("torrent-indexer");
 const torrentIndexer = new TorrentIndexer();
 
-await torrentIndexer.search("rick and morty s04e04");
+const torrents = await torrentIndexer.search("rick and morty s04e04");
+
+console.log(results);
+
+/*
+[
+  {
+    fileName: 'Rick.and.Morty.S04E01.1080p.WEBRip.x264-TBS[TGx]',
+    seeders: 7900,
+    leechers: 3198,
+    uploaded: "Nov. 11th '19",
+    size: '736.0 MB',
+    site: 'https://...',
+    resolution: '1080p',
+    source: 'webrip',
+    codec: 'x264',
+    group: 'TBS[TGx]',
+    season: 4,
+    episode: 1,
+    score: 24.281,
+    title: 'Rick and Morty',
+    sourceName: '1337x'
+  },
+  {
+    fileName: 'Rick and Morty S04E01 720p HDTV x264-W4F [eztv]',
+    seeders: 170,
+    leechers: 0,
+    uploaded: '4 mo',
+    size: '500.68 MB',
+    link: 'magnet:?xt=urn:btih:...',
+    resolution: '720p',
+    source: 'hdtv',
+    codec: 'x264',
+    season: 4,
+    episode: 1,
+    score: 23.357,
+    title: 'Rick and Morty',
+    sourceName: 'Eztv'
+  },
+  ...
+]
+*/
 ```
 
-## API
+Search method returns array of objects:
 
-### `.search()`
+| Property   |   Type   | Optional |                                                                                                                                        Description |
+| ---------- | :------: | -------: | -------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `fileName` | `string` |       No |                                                                          torrent name found in the scraped sites, might be stripped for some sites |
+| `seeders`  | `number` |       No |                                                                                                                            total amount of seeders |
+| `leechers` | `number` |       No |                                                                                                                        total leechers (0 for eztv) |
+| `uploaded` | `string` |       No |                                                                                                             upload dates, non standard date format |
+| `link`     | `string` |   Yes/No |                                                                                         contains either downloadable torrent url or magnet address |
+| `site`     | `string` |   Yes/No | if magnet or direct link of .torrent cannot be extracted this property will contain specific page address to extract using `.torrent(site)` method |
 
-```js
-search(query, String(type);
-```
+- One of `link` or `site` will be available. Site value contains webpage address to retrive torrent magnet or hash using `.torrent(.site)` method while link contains either direct downloadable torrent link or magnet.
 
-| Parameters | Required |               Accepted Values |
-| ---------- | :------: | ----------------------------: |
-| type       |    No    | movie, series, music or anime |
-
-Search method returns array of items:
-
-| Property     |   Type   |           Optional |                                                                                                                                        Description |
-| ------------ | :------: | -----------------: | -------------------------------------------------------------------------------------------------------------------------------------------------: |
-| `fileName`   | `string` |                :x: |                                                                                  torrent name found in the sites, might be stripped for some sites |
-| `seeders`    | `number` |                :x: |                                                                                                                                      total seeders |
-| `leechers`   | `number` |                :x: |                                                                                                                        total leechers (0 for eztv) |
-| `uploaded`   | `string` |                :x: |                                                                                                             upload dates, not standard date format |
-| `link`       | `string` | :white_check_mark: |                                                                                         contains either downloadable torrent url or magnet address |
-| `site`       | `string` | :white_check_mark: | if magnet or direct link of .torrent cannot be extracted this property will contain specific page address to extract using `.torrent(site)` method |
-| `resolution` | `string` | :white_check_mark: |                                                                                                             for movies and tv show. example: 1080p |
-
-Specific for movies and tv show (Optional)
+- There are also optional additional specific property available for specially for media contents.
 
 | Property     |   Type   |          Example |
 | ------------ | :------: | ---------------: |
 | `resolution` | `string` |          `1080p` |
-| `source`     | `string` |         `webrip` |
+| `source`     | `string` |         `bluray` |
 | `codec`      | `string` |           `x264` |
-| `group`      | `string` |            `PSA` |
+| `group`      | `string` |          `RARBG` |
 | `season`     | `number` |              `4` |
 | `episode`    | `number` |              `1` |
 | `title`      | `string` | `Rick and Morty` |
 | `sourceName` | `string` |          `1337x` |
 
-### `.torrent()`
+## Methods
 
-```js
-torrent(url);
-```
+### `.search(query, type);`
+
+| Parameters | Required |               Accepted Values |
+| ---------- | :------: | ----------------------------: |
+| query      |   Yes    |   anything, your search query |
+| type       |    No    | movie, series, music or anime |
+
+### `.torrent(url)`
 
 | Parameters | Required |                                                                     Description |
 | ---------- | :------: | ------------------------------------------------------------------------------: |
@@ -69,7 +104,7 @@ torrent(url);
 Example:
 
 ```js
-await torrentIndexer.torrent(torrent.site);
+await torrentIndexer.torrent(torrents.site);
 ```
 
 ### Donations
