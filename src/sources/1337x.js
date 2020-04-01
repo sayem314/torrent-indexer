@@ -26,12 +26,14 @@ class Leetx extends TorrentSource {
         const size = element.querySelectorAll("td.coll-4")[0].childNodes[0]
           .text;
         const date_added = element.querySelectorAll("td.coll-date")[0].text;
+        const uploader = element.querySelectorAll("td.coll-5")[0].text;
 
         torrent_content.push({
           fileName: a.text.replace("⭐", "").trim(),
           seeders: Number(seeds),
           leechers: Number(leeches),
           uploaded: date_added,
+          uploader,
           size,
           site: this.url + a.attributes.href
         });

@@ -28,6 +28,7 @@ class Sky extends TorrentSource {
 
         torrent_content.push({
           fileName: a[0].text,
+          category: a[4] ? a[4].text : "",
           seeders: Number(info[4].text),
           leechers: Number(info[5].text),
           uploaded: info[3].text,

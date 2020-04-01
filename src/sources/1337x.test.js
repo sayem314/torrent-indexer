@@ -25,6 +25,9 @@ test("should work properly", async () => {
     expect(item.uploaded).to.be.an("string");
     expect(item.uploaded.length).to.be.at.least(10);
 
+    expect(item.uploader).to.be.an("string");
+    expect(item.uploader.length).to.be.at.least(3);
+
     expect(item.size).to.be.an("string");
     expect(item.size).to.include("B");
 

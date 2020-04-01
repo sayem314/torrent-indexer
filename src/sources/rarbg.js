@@ -62,6 +62,7 @@ class Rarbg extends TorrentSource {
         for (const torrent of data.torrent_results) {
           torrent_content.push({
             fileName: torrent.title,
+            category: torrent.category,
             seeders: torrent.seeders,
             leechers: torrent.leechers,
             size: bytesToSize(torrent.size),

@@ -33,6 +33,7 @@ class ThePirateBay extends TorrentSource {
             .split(" ")
             .join("-")
             .replace(",", ""),
+          uploader: more[7],
           size: more[3].replace(",", ""),
           link: a[3].attributes.href
         });

@@ -15,6 +15,9 @@ test("should work properly", async () => {
     expect(item.fileName).to.be.an("string");
     expect(item.fileName.length).to.be.at.least(10);
 
+    expect(item.category).to.be.an("string");
+    expect(item.category.length).to.be.at.least(2);
+
     expect(item.seeders).to.be.an("number");
     expect(item.seeders).to.be.least(0);
 
