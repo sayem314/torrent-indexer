@@ -88,18 +88,19 @@ Search method returns array of objects:
 
 ## Methods
 
-### `.search(query, type);`
+### `.search(query, type, page);`
 
-| Parameters | Required |               Accepted Values |
-| ---------- | :------: | ----------------------------: |
-| query      |   Yes    |   anything, your search query |
-| type       |    No    | movie, series, music or anime |
+| Parameters | Required |     Type |               Accepted Values |
+| ---------- | :------: | -------: | ----------------------------: |
+| `query`    |   Yes    | `string` |   anything, your search query |
+| `type`     |    No    | `string` | movie, series, music or anime |
+| `page`     |    No    | `number` |                          >= 1 |
 
 ### `.torrent(url)`
 
 | Parameters | Required |                                                                     Description |
 | ---------- | :------: | ------------------------------------------------------------------------------: |
-| url        |   Yes    | Using this method you can retrieve magnet or torrent hash from `.site` property |
+| `url`      |   Yes    | Using this method you can retrieve magnet or torrent hash from `.site` property |
 
 Example:
 
