@@ -1,7 +1,7 @@
 {
   "name": "torrent-indexer",
-  "version": "1.1.4",
-  "description": "Yet another node.js torrent scraper based on seek-torrent but made especially for movies, series, anime and music (scrape from 1337x, eztv, limetorrents, rarbg, skytorrents, torrentproject, torrentz2, yts and zooqle)",
+  "version": "1.2.0",
+  "description": "Yet another node.js torrent scraper based on seek-torrent but made especially for movies, series, anime and music (scrape from 1337x, eztv, limetorrents, rarbg, skytorrents, torrentproject, yts and zooqle)",
   "main": "src/torrentIndexer.js",
   "scripts": {
     "test": "ava",
@@ -22,13 +22,15 @@
   "keywords": [
     "torrent",
     "search",
+    "crawler",
     "seek",
     "index",
     "download",
     "movie",
     "series",
     "tracker",
-    "tvshow"
+    "tv",
+    "show"
   ],
   "author": "Sayem Chowdhury",
   "license": "MIT",
