@@ -31,6 +31,9 @@ test("should work properly", async () => {
     expect(item.size).to.be.an("string");
     expect(item.size).to.include("B");
 
+    expect(item.length).to.be.an("number");
+    expect(item.length).to.be.least(1024);
+
     expect(item.site).to.be.an("string");
     expect(item.site).to.include(url);
   }

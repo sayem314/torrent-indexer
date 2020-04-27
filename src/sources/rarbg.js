@@ -66,6 +66,7 @@ class Rarbg extends TorrentSource {
             seeders: torrent.seeders,
             leechers: torrent.leechers,
             size: bytesToSize(torrent.size),
+            length: torrent.size,
             uploaded: torrent.pubdate.split("+")[0],
             link: torrent.download
           });

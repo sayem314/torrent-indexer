@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class Eztv extends TorrentSource {
@@ -28,13 +29,15 @@ class Eztv extends TorrentSource {
         const seeds = element.querySelectorAll("td.forum_thread_post_end")[0]
           .text;
         const info = element.querySelectorAll("td.forum_thread_post");
+        const size = info[3].text;
 
         torrent_content.push({
           fileName: title,
           seeders: Number(seeds),
           leechers: 0,
           uploaded: info[4].text,
-          size: info[3].text,
+          size,
+          length: unhumanizeSize(size),
           link: torrent_link
         });
       }

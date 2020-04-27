@@ -36,6 +36,7 @@ class Yts extends TorrentSource {
               seeders: torrent.seeds,
               leechers: torrent.peers,
               size: torrent.size,
+              length: torrent.size_bytes,
               uploaded: torrent.date_uploaded.split(" ")[0],
               link: torrent_link
             });

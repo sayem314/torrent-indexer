@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class ThePirateBay extends TorrentSource {
@@ -24,6 +25,7 @@ class ThePirateBay extends TorrentSource {
         const a = element.querySelectorAll("a");
         const info = element.querySelectorAll("td");
         const more = element.querySelectorAll(".detDesc")[0].text.split(" ");
+        const size = more[3].replace(",", "");
 
         torrent_content.push({
           fileName: a[2].text,
@@ -34,7 +36,8 @@ class ThePirateBay extends TorrentSource {
             .join("-")
             .replace(",", ""),
           uploader: more[7],
-          size: more[3].replace(",", ""),
+          size,
+          length: unhumanizeSize(size),
           link: a[3].attributes.href
         });
       }

@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class TorrentProject extends TorrentSource {
@@ -27,13 +28,15 @@ class TorrentProject extends TorrentSource {
           if (torrent_verified) {
             info.shift();
           }
+          const size = info[5].text;
 
           torrent_content.push({
             fileName: title,
             seeders: Number(info[2].text),
             leechers: Number(info[3].text),
             uploaded: info[4].text,
-            size: info[5].text,
+            size,
+            length: unhumanizeSize(size),
             verified: torrent_verified,
             link: this.url + torrent_link
           });

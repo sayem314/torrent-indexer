@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class Leetx extends TorrentSource {
@@ -35,6 +36,7 @@ class Leetx extends TorrentSource {
           uploaded: date_added,
           uploader,
           size,
+          length: unhumanizeSize(size),
           site: this.url + a.attributes.href
         });
       }

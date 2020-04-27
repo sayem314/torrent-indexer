@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 const nonHumanizeNumbers = value => {
@@ -29,7 +30,7 @@ class Zooqle extends TorrentSource {
         const a = element.querySelectorAll("a");
         const seeds = element.querySelectorAll("div.prog-green")[0];
         const leechs = element.querySelectorAll("div.prog-yellow")[0];
-        const size = element.querySelectorAll("div.prog-blue")[0];
+        const size = element.querySelectorAll("div.prog-blue")[0].text;
         const date_added = element.querySelectorAll(
           "td.text-nowrap.text-muted.smaller"
         )[0].text;
@@ -40,7 +41,8 @@ class Zooqle extends TorrentSource {
             seeders: nonHumanizeNumbers(seeds.text),
             leechers: nonHumanizeNumbers(leechs.text),
             uploaded: date_added,
-            size: size.text,
+            size,
+            length: unhumanizeSize(size),
             link: a[2].attributes.href
           });
         }

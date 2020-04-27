@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class Limetorrents extends TorrentSource {
@@ -25,13 +26,15 @@ class Limetorrents extends TorrentSource {
         const seeds = element.querySelector("td.tdseed").text;
         const leeches = element.querySelector("td.tdleech").text;
         const info = element.querySelectorAll("td.tdnormal");
+        const size = info[1].text;
 
         torrent_content.push({
           fileName: title,
           seeders: Number(seeds.replace(",", "")),
           leechers: Number(leeches.replace(",", "")),
           uploaded: info[0].text.split(" -")[0],
-          size: info[1].text,
+          size,
+          length: unhumanizeSize(size),
           link: torrent_link
         });
       }

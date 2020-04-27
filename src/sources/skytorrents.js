@@ -1,5 +1,6 @@
 const TorrentSource = require("../lib/torrentSource");
 const axios = require("../lib/request");
+const unhumanizeSize = require("../lib/unhumanizeSize");
 const { parse } = require("node-html-parser");
 
 class Sky extends TorrentSource {
@@ -25,6 +26,7 @@ class Sky extends TorrentSource {
       for (const element of root) {
         const a = element.querySelectorAll("td a");
         const info = element.querySelectorAll("td");
+        const size = info[1].text;
 
         torrent_content.push({
           fileName: a[0].text,
@@ -32,7 +34,8 @@ class Sky extends TorrentSource {
           seeders: Number(info[4].text),
           leechers: Number(info[5].text),
           uploaded: info[3].text,
-          size: info[1].text,
+          size,
+          length: unhumanizeSize(size),
           link: a[2].attributes.href
         });
       }
