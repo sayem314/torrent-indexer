@@ -9,7 +9,7 @@ class Kickass extends TorrentSource {
     this.url = options.url;
   }
 
-  async search(query, type, page = 1, category) {
+  async search(query, type, page = 1) {
     try {
       const search_url = `${
         this.url
