@@ -50,6 +50,6 @@
     "concurrency": 4,
     "failWithoutAssertions": false,
     "verbose": true,
-    "timeout": "25s"
+    "timeout": "30s"
   }
 }

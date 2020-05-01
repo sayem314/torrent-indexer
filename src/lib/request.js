@@ -6,7 +6,7 @@ Object.assign(instance.defaults, {
   headers: {
     "user-agent": "node.js"
   },
-  timeout: 10000
+  timeout: 20000
 });
 
 // retry request up to 3 times
