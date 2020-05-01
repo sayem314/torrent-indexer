@@ -4,6 +4,7 @@ const { sources } = require("./config");
 
 const YtsSearch = require("./sources/yts");
 const LeetxSearch = require("./sources/1337x");
+const KickassSearch = require("./sources/kickass");
 const EztvSearch = require("./sources/eztv");
 const RarbgSearch = require("./sources/rarbg");
 const SkySearch = require("./sources/skytorrents");
@@ -22,6 +23,7 @@ class TorrentIndexer {
 
     this.YTS = new YtsSearch(this.sources.yts);
     this.LEETX = new LeetxSearch(this.sources.leetx);
+    this.KICKASS = new KickassSearch(this.sources.kickass);
     this.EZTV = new EztvSearch(this.sources.eztv);
     this.RARBG = new RarbgSearch(this.sources.rarbg);
     this.SKY = new SkySearch(this.sources.sky);
@@ -44,6 +46,7 @@ class TorrentIndexer {
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Movies"),
+            this.KICKASS.search(query, type, page),
             this.YTS.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "movies"),
             this.ZOOQLE.search(query, type, page, "Movies")
@@ -57,6 +60,7 @@ class TorrentIndexer {
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "TV"),
+            this.KICKASS.search(query, type, page),
             this.EZTV.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "tv"),
             this.ZOOQLE.search(query, type, page, "TV")
@@ -68,6 +72,7 @@ class TorrentIndexer {
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Anime"),
+            this.KICKASS.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "anime"),
             this.ZOOQLE.search(query, type, page, "Anime")
           ]);
@@ -79,6 +84,7 @@ class TorrentIndexer {
             this.TPB.search(query, type, page),
             this.TORRENTPROJECT.search(query, type, page),
             this.LEETX.search(query, type, page, "Music"),
+            this.KICKASS.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page, "music")
           ]);
           break;
@@ -90,6 +96,7 @@ class TorrentIndexer {
             this.TORRENTPROJECT.search(query, type, page),
             this.YTS.search(query, type, page),
             this.LEETX.search(query, type, page),
+            this.KICKASS.search(query, type, page),
             this.EZTV.search(query, type, page),
             this.LIMETORRENTS.search(query, type, page),
             this.ZOOQLE.search(query, type, page)
