@@ -1,6 +1,6 @@
 {
   "name": "torrent-indexer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Yet another node.js torrent scraper based on seek-torrent but made especially for movies, series, anime and music (scrape from 1337x, eztv, limetorrents, rarbg, skytorrents, torrentproject, yts and zooqle)",
   "main": "src/torrentIndexer.js",
   "scripts": {
