@@ -1,4 +1,4 @@
-## torrent-indexer [![Build Status](https://travis-ci.org/sayem314/torrent-indexer.svg?branch=master)](https://travis-ci.org/sayem314/torrent-indexer) [![npm downloads per month](https://img.shields.io/npm/dm/torrent-indexer.svg)](https://www.npmjs.com/package/torrent-indexer) [![npm version](https://img.shields.io/npm/v/torrent-indexer?label=version)](https://www.npmjs.com/package/torrent-indexer)
+## torrent-indexer [![Build Status](https://img.shields.io/travis/sayem314/torrent-indexer.svg?style=flat-square&label=Daily+Builds)](https://travis-ci.org/sayem314/torrent-indexer) [![npm downloads per month](https://img.shields.io/npm/dm/torrent-indexer.svg)](https://www.npmjs.com/package/torrent-indexer) [![npm version](https://img.shields.io/npm/v/torrent-indexer?label=version)](https://www.npmjs.com/package/torrent-indexer)
 
 Finds the best torrents (Movies, Series, Anime, Music and Other stuff) across multiple sources.
 
