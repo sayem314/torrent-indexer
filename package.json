@@ -36,13 +36,13 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
-    "node-html-parser": "^1.2.14",
+    "node-html-parser": "^1.2.16",
     "parse-torrent-title": "^1.2.0",
     "retry-axios": "^2.1.2",
     "string-similarity": "^4.0.1"
   },
   "devDependencies": {
-    "ava": "^3.5.2",
+    "ava": "^3.8.1",
     "chai": "4.2.0",
     "eslint": "6.8.0"
   },
