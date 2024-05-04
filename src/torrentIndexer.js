@@ -1,6 +1,6 @@
 const axios = require("./lib/request");
 const { parse } = require("node-html-parser");
-const { sources } = require("./config");
+const { sources } = require("./config.json");
 
 const YtsSearch = require("./sources/yts");
 const LeetxSearch = require("./sources/1337x");
