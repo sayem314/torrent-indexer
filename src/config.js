@@ -1,15 +1,15 @@
 export const sources = {
   kickass: {
     name: "Kickass",
-    url: "https://katcr.co"
+    url: "https://katcr.to"
   },
   limetorrents: {
     name: "LimeTorrents",
-    url: "https://www.limetorrents.info"
+    url: "https://www.limetorrents.fun"
   },
   yts: {
     name: "YTS",
-    url: "https://yts.mx"
+    url: "https://yts.bz"
   },
   tpb: {
     name: "The Pirate Bay",
@@ -25,7 +25,7 @@ export const sources = {
   },
   nyaa: {
     name: "Nyaa",
-    url: "http://www.nyaa.si"
+    url: "https://nyaa.si"
   },
   tokyotosho: {
     name: "Tokiotosho",
@@ -33,7 +33,7 @@ export const sources = {
   },
   eztv: {
     name: "Eztv",
-    url: "https://www.eztv.ag"
+    url: "https://eztvx.to"
   },
   rarbg: {
     name: "Rarbg",
