@@ -4,6 +4,7 @@
   "description": "Yet another node.js torrent scraper based on seek-torrent but made especially for movies, series, anime and music (scrape from 1337x, eztv, limetorrents, rarbg, skytorrents, torrentproject, yts and zooqle)",
   "type": "module",
   "main": "src/torrentIndexer.js",
+  "types": "src/torrentIndexer.d.ts",
   "scripts": {
     "test": "ava src/lib/*.test.js",
     "test:integration": "ava src/torrentIndexer.test.js src/sources/*.test.js",
