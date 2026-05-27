@@ -5,8 +5,9 @@
   "type": "module",
   "main": "src/torrentIndexer.js",
   "scripts": {
-    "test": "ava",
-    "pretest": "npm run lint",
+    "test": "ava src/lib/*.test.js",
+    "test:integration": "ava src/torrentIndexer.test.js src/sources/*.test.js",
+    "pretest": "bun run lint",
     "lint": "eslint ."
   },
   "engines": {
