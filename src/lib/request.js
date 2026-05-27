@@ -1,15 +1,17 @@
 const rax = require("retry-axios");
-const instance = require("axios");
+const axios = require("axios");
 
-// set default timeout and headers
-Object.assign(instance.defaults, {
+const instance = axios.create({
   headers: {
     "user-agent": "node.js"
   },
   timeout: 20000
 });
 
-// retry request up to 3 times
+instance.defaults.raxConfig = {
+  retry: 3
+};
+
 rax.attach(instance);
 
 module.exports = instance;

@@ -1,4 +1,4 @@
-const test = require("ava");
+const test = require("ava").default;
 const Leetx = require("./1337x");
 const { sources } = require("../config");
 const { expect } = require("chai");

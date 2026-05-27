@@ -1,4 +1,4 @@
-const test = require("ava");
+const test = require("ava").default;
 const SkyTorrents = require("./skytorrents");
 const { sources } = require("../config");
 const { expect } = require("chai");

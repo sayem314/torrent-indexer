@@ -141,7 +141,7 @@ class TorrentIndexer {
       const { data } = await axios.get(url);
       return this.torrentFromString(data);
     } catch (err) {
-      throw new Error(err);
+      throw new Error(err.message, { cause: err });
     }
   }
 }

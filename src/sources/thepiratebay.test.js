@@ -1,4 +1,4 @@
-const test = require("ava");
+const test = require("ava").default;
 const ThePirateBay = require("./thepiratebay");
 const { sources } = require("../config");
 const { expect } = require("chai");

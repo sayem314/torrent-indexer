@@ -1,4 +1,3 @@
-/* eslint-disable */
 const TorrentIndexer = require("./");
 const torrentIndexer = new TorrentIndexer();
 
