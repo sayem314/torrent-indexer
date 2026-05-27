@@ -36,6 +36,9 @@ class TorrentSource {
           const similarity = compareTwoStrings(query, item.fileName);
           if (similarity >= 0.2) {
             const torrentData = ptt.parse(item.fileName);
+            if (torrentData.title) {
+              torrentData.title = torrentData.title.replace(/[-\s]+$/, "");
+            }
 
             if (this.isTorrentOfType(torrentData, type)) {
               if (!torrentData.score) {

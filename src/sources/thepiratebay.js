@@ -25,21 +25,51 @@ class ThePirateBay extends TorrentSource {
       for (const element of root) {
         const a = element.querySelectorAll("a");
         const info = element.querySelectorAll("td");
-        const more = element.querySelectorAll(".detDesc")[0].text.split(" ");
-        const size = more[3].replace(",", "");
+        const details = element.querySelector(".detDesc");
 
-        torrent_content.push({
-          fileName: a[2].text,
-          seeders: Number(info[2].text),
-          leechers: Number(info[3].text),
-          uploaded: more[1]
+        let fileName;
+        let seeders;
+        let leechers;
+        let uploaded;
+        let uploader;
+        let size;
+        let link;
+
+        if (details) {
+          const more = details.text.split(" ");
+          size = more[3].replace(",", "");
+          fileName = a[2].text;
+          seeders = Number(info[2].text);
+          leechers = Number(info[3].text);
+          uploaded = more[1]
             .split(" ")
             .join("-")
-            .replace(",", ""),
-          uploader: more[7],
+            .replace(",", "");
+          uploader = more[7];
+          link = a[3].attributes.href;
+        } else {
+          const title = info[1].querySelector("a");
+          const magnet = info[3].querySelector("a[href^=\"magnet:\"]");
+          const uploaderLink = info[7].querySelector("a");
+
+          fileName = title.text;
+          seeders = Number(info[5].text);
+          leechers = Number(info[6].text);
+          uploaded = info[2].text.split(" ").join("-");
+          uploader = uploaderLink ? uploaderLink.text : info[7].text;
+          size = info[4].text.split(" ").join(" ");
+          link = magnet.attributes.href;
+        }
+
+        torrent_content.push({
+          fileName,
+          seeders,
+          leechers,
+          uploaded,
+          uploader,
           size,
           length: unhumanizeSize(size),
-          link: a[3].attributes.href
+          link
         });
       }
 
