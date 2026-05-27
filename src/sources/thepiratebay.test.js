@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const ThePirateBay = require("./thepiratebay");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import ThePirateBay from "./thepiratebay.js";
 
 const thepiratebay = new ThePirateBay(sources.tpb);
 

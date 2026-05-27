@@ -11,4 +11,4 @@ const unhumanizeSize = size => {
   return res[1] * Math.pow(1024, powers[res[2].toLowerCase()]);
 };
 
-module.exports = unhumanizeSize;
+export default unhumanizeSize;

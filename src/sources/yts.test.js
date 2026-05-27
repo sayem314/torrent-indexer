@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Yts = require("./yts");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Yts from "./yts.js";
 
 const yts = new Yts(sources.yts);
 

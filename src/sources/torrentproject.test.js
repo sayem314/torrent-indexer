@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Torrentproject = require("./torrentproject");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Torrentproject from "./torrentproject.js";
 
 const torrentproject = new Torrentproject(sources.torrentproject);
 

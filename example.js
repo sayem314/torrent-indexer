@@ -1,4 +1,4 @@
-const TorrentIndexer = require("./");
+import TorrentIndexer from "./src/torrentIndexer.js";
 const torrentIndexer = new TorrentIndexer();
 
 (async function() {

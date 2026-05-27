@@ -5,7 +5,7 @@ Finds the best torrents (Movies, Series, Anime, Music and Other stuff) across mu
 ## Installation
 
 ```bash
-$ yarn add torrent-indexer
+$ bun add torrent-indexer
 ```
 
 ## Usage
@@ -13,12 +13,13 @@ $ yarn add torrent-indexer
 Here's a simple example to search for torrents.
 
 ```js
-const TorrentIndexer = require("torrent-indexer");
+import TorrentIndexer from "torrent-indexer";
+
 const torrentIndexer = new TorrentIndexer();
 
 const torrents = await torrentIndexer.search("rick and morty s04e04");
 
-console.log(results);
+console.log(torrents);
 
 /*
 [

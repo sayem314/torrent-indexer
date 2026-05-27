@@ -1,7 +1,8 @@
-const TorrentSource = require("../lib/torrentSource");
-const axios = require("../lib/request");
-const unhumanizeSize = require("../lib/unhumanizeSize");
-const { parse } = require("node-html-parser");
+import { parse } from "node-html-parser";
+
+import axios from "../lib/request.js";
+import TorrentSource from "../lib/torrentSource.js";
+import unhumanizeSize from "../lib/unhumanizeSize.js";
 
 const nonHumanizeNumbers = value => {
   if (value.endsWith("K")) {
@@ -61,4 +62,4 @@ class Zooqle extends TorrentSource {
   }
 }
 
-module.exports = Zooqle;
+export default Zooqle;

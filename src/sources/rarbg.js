@@ -1,5 +1,5 @@
-const TorrentSource = require("../lib/torrentSource");
-const axios = require("../lib/request");
+import axios from "../lib/request.js";
+import TorrentSource from "../lib/torrentSource.js";
 
 const bytesToSize = bytes => {
   let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -82,4 +82,4 @@ class Rarbg extends TorrentSource {
   }
 }
 
-module.exports = Rarbg;
+export default Rarbg;

@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const SkyTorrents = require("./skytorrents");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import SkyTorrents from "./skytorrents.js";
 
 const sky = new SkyTorrents(sources.sky);
 

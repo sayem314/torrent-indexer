@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Limetorrents = require("./limetorrents");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Limetorrents from "./limetorrents.js";
 
 const limetorrents = new Limetorrents(sources.limetorrents);
 

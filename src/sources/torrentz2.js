@@ -1,6 +1,4 @@
-const TorrentSource = require("../lib/torrentSource");
-// const axios = require("axios");
-// const cheerio = require("cheerio");
+import TorrentSource from "../lib/torrentSource.js";
 
 class Torrentz2 extends TorrentSource {
   constructor(options) {
@@ -62,4 +60,4 @@ class Torrentz2 extends TorrentSource {
   // }
 }
 
-module.exports = Torrentz2;
+export default Torrentz2;

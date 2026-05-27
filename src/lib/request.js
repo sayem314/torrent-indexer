@@ -1,5 +1,5 @@
-const rax = require("retry-axios");
-const axios = require("axios");
+import axios from "axios";
+import * as rax from "retry-axios";
 
 const instance = axios.create({
   headers: {
@@ -14,4 +14,4 @@ instance.defaults.raxConfig = {
 
 rax.attach(instance);
 
-module.exports = instance;
+export default instance;

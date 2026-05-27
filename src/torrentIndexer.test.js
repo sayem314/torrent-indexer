@@ -1,6 +1,7 @@
-const test = require("ava").default;
-const TorrentIndexer = require("./torrentIndexer");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import TorrentIndexer from "./torrentIndexer.js";
 
 const torrentIndexer = new TorrentIndexer();
 

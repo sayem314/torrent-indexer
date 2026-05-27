@@ -1,5 +1,5 @@
-const TorrentSource = require("../lib/torrentSource");
-const axios = require("../lib/request");
+import axios from "../lib/request.js";
+import TorrentSource from "../lib/torrentSource.js";
 
 class Yts extends TorrentSource {
   constructor(options) {
@@ -53,4 +53,4 @@ class Yts extends TorrentSource {
   }
 }
 
-module.exports = Yts;
+export default Yts;

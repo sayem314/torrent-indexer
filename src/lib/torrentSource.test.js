@@ -1,6 +1,7 @@
-const test = require("ava").default;
-const { expect } = require("chai");
-const TorrentSource = require("./torrentSource");
+import test from "ava";
+import { expect } from "chai";
+
+import TorrentSource from "./torrentSource.js";
 
 class TestSource extends TorrentSource {
   constructor(name) {

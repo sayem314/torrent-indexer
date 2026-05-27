@@ -1,17 +1,17 @@
-const axios = require("./lib/request");
-const { parse } = require("node-html-parser");
-const { sources } = require("./config.json");
+import { parse } from "node-html-parser";
 
-const YtsSearch = require("./sources/yts");
-const LeetxSearch = require("./sources/1337x");
-const KickassSearch = require("./sources/kickass");
-const EztvSearch = require("./sources/eztv");
-const RarbgSearch = require("./sources/rarbg");
-const SkySearch = require("./sources/skytorrents");
-const ZooqleSearch = require("./sources/zooqle");
-const ThePirateBaySearch = require("./sources/thepiratebay");
-const LimetorrentsSearch = require("./sources/limetorrents");
-const TorrentProjectSearch = require("./sources/torrentproject");
+import { sources } from "./config.js";
+import axios from "./lib/request.js";
+import YtsSearch from "./sources/yts.js";
+import LeetxSearch from "./sources/1337x.js";
+import KickassSearch from "./sources/kickass.js";
+import EztvSearch from "./sources/eztv.js";
+import RarbgSearch from "./sources/rarbg.js";
+import SkySearch from "./sources/skytorrents.js";
+import ZooqleSearch from "./sources/zooqle.js";
+import ThePirateBaySearch from "./sources/thepiratebay.js";
+import LimetorrentsSearch from "./sources/limetorrents.js";
+import TorrentProjectSearch from "./sources/torrentproject.js";
 
 class TorrentIndexer {
   constructor(config = {}) {
@@ -146,4 +146,4 @@ class TorrentIndexer {
   }
 }
 
-module.exports = TorrentIndexer;
+export default TorrentIndexer;

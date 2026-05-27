@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Kickass = require("./kickass");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Kickass from "./kickass.js";
 
 const kickass = new Kickass(sources.kickass);
 

@@ -1,5 +1,5 @@
-const ptt = require("parse-torrent-title");
-const { compareTwoStrings } = require("string-similarity");
+import ptt from "parse-torrent-title";
+import { compareTwoStrings } from "string-similarity";
 
 // score
 ptt.addHandler("score", /\b(BRRip|Blu-?ray)\b/i, { value: 29 });
@@ -84,4 +84,4 @@ class TorrentSource {
   }
 }
 
-module.exports = TorrentSource;
+export default TorrentSource;

@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Eztv = require("./eztv");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Eztv from "./eztv.js";
 
 const eztv = new Eztv(sources.eztv);
 

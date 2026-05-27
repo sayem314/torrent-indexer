@@ -1,7 +1,8 @@
-const test = require("ava").default;
-const Leetx = require("./1337x");
-const { sources } = require("../config");
-const { expect } = require("chai");
+import test from "ava";
+import { expect } from "chai";
+
+import { sources } from "../config.js";
+import Leetx from "./1337x.js";
 
 const leetx = new Leetx(sources.leetx);
 
