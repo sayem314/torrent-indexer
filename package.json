@@ -38,7 +38,7 @@
   "author": "Sayem Chowdhury",
   "license": "MIT",
   "dependencies": {
-    "axios": "1.16.1",
+    "axios": "1.18.0",
     "node-html-parser": "7.1.0",
     "parse-torrent-title": "3.0.1",
     "retry-axios": "4.0.3",
